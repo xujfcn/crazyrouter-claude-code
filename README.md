@@ -2,7 +2,7 @@
 
 > **Save 45% on Claude API costs** — Use Claude Code through Crazyrouter's OpenAI-compatible API gateway.
 
-[Crazyrouter](https://crazyrouter.com?ref=github) is an AI API gateway that gives you access to all major models (Claude, GPT, Gemini, etc.) through a single API key — at significantly lower prices.
+[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community?ref=github) is an AI API gateway that gives you access to all major models (Claude, GPT, Gemini, etc.) through a single API key — at significantly lower prices.
 
 ## 💰 Price Comparison
 
@@ -16,19 +16,19 @@
 
 ### 1. Get your Crazyrouter API key
 
-Sign up at [crazyrouter.com](https://crazyrouter.com?ref=github) and grab your API key.
+Sign up at [crazyrouter.com](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community?ref=github) and grab your API key.
 
 ### 2. Set environment variables
 
 ```bash
-export ANTHROPIC_BASE_URL=https://crazyrouter.com
+export ANTHROPIC_BASE_URL=https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community
 export ANTHROPIC_API_KEY=sk-your-crazyrouter-key
 ```
 
 Or add to your shell profile (`~/.bashrc`, `~/.zshrc`):
 
 ```bash
-echo 'export ANTHROPIC_BASE_URL=https://crazyrouter.com' >> ~/.zshrc
+echo 'export ANTHROPIC_BASE_URL=https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community' >> ~/.zshrc
 echo 'export ANTHROPIC_API_KEY=sk-your-crazyrouter-key' >> ~/.zshrc
 source ~/.zshrc
 ```
@@ -62,7 +62,7 @@ chmod +x setup.sh
 
 ```bash
 # Required
-export ANTHROPIC_BASE_URL=https://crazyrouter.com
+export ANTHROPIC_BASE_URL=https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community
 export ANTHROPIC_API_KEY=sk-your-crazyrouter-key
 
 # Optional: Set default model
@@ -74,7 +74,7 @@ export CLAUDE_MODEL=claude-sonnet-4-20250514
 Run `claude` and use `/config` to set:
 
 ```
-API Base URL: https://crazyrouter.com
+API Base URL: https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community
 API Key: sk-your-crazyrouter-key
 ```
 
@@ -105,8 +105,8 @@ A: Crazyrouter does not store or log your prompts or completions. All traffic is
 
 ## 🔗 Links
 
-- 🌐 [Crazyrouter Website](https://crazyrouter.com?ref=github)
-- 📖 [API Documentation](https://crazyrouter.com/docs?ref=github)
+- 🌐 [Crazyrouter Website](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community?ref=github)
+- 📖 [API Documentation](https://crazyrouter.com/docs?ref=github&utm_source=github&utm_medium=github&utm_campaign=dev_community)
 - 💬 [Telegram Community](https://t.me/crazyrouter)
 - 🐦 [Twitter @metaviiii](https://twitter.com/metaviiii)
 
