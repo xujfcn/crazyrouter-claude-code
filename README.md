@@ -1,54 +1,116 @@
 # 🚀 Use Claude Code with Crazyrouter
 
-> **Save 45% on Claude API costs** — Use Claude Code through Crazyrouter's OpenAI-compatible API gateway.
+> **Use Claude Code with one Crazyrouter token** — lower cost, one API key, simple setup.
 
-[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community?ref=github) is an AI API gateway that gives you access to all major models (Claude, GPT, Gemini, etc.) through a single API key — at significantly lower prices.
+[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) is an AI API gateway that gives you access to Claude, GPT, Gemini, DeepSeek, and many other models through a single API key.
 
-## 💰 Price Comparison
+This repo is for one thing:
 
-| Model | Official Price (Input/Output) | Crazyrouter Price | Savings |
-|-------|-------------------------------|-------------------|---------|
-| Claude Opus 4 | $15 / $75 per 1M tokens | $8.25 / $41.25 | **45%** |
-| Claude Sonnet 4 | $3 / $15 per 1M tokens | $1.65 / $8.25 | **45%** |
-| Claude Haiku 3.5 | $0.80 / $4 per 1M tokens | $0.44 / $2.20 | **45%** |
+- install **Claude Code** fast
+- configure it to use **Crazyrouter**
+- let the user paste **one token** and start using it
 
-## ⚡ Quick Start (3 Steps)
+---
 
-### 1. Get your Crazyrouter API key
+## ⚡ One-Click Install
 
-Sign up at [crazyrouter.com](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community?ref=github) and grab your API key.
+### Windows PowerShell
 
-### 2. Set environment variables
+Copy and run:
 
-```bash
-export ANTHROPIC_BASE_URL=https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community
-export ANTHROPIC_API_KEY=sk-your-crazyrouter-key
+```powershell
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex"
 ```
 
-Or add to your shell profile (`~/.bashrc`, `~/.zshrc`):
+Short version:
 
-```bash
-echo 'export ANTHROPIC_BASE_URL=https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community' >> ~/.zshrc
-echo 'export ANTHROPIC_API_KEY=sk-your-crazyrouter-key' >> ~/.zshrc
-source ~/.zshrc
+```powershell
+irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex
 ```
 
-### 3. Use Claude Code as normal
+What it does:
+- installs Git
+- installs Node.js LTS
+- installs Claude Code
+- asks for your Crazyrouter token
+- saves environment variables automatically
+- creates a small test repo
 
-```bash
-claude
-```
+---
 
-That's it! Claude Code will now route through Crazyrouter automatically.
+### macOS / Linux
 
-## 🔧 One-Click Setup Script
+Copy and run:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
 ```
 
-Or clone and run:
+What it does:
+- installs Node.js if needed
+- installs Claude Code
+- asks for your Crazyrouter token
+- saves environment variables into your shell profile
 
+---
+
+## 💡 What token do I need?
+
+You only need a **Crazyrouter API key**.
+
+Get one here:
+- <https://crazyrouter.com>
+
+The installer will ask you to paste it.
+
+---
+
+## 🔧 Environment Variables Used
+
+The installers save both Anthropic-style and OpenAI-style variables.
+
+### Anthropic-style
+```bash
+ANTHROPIC_BASE_URL=https://crazyrouter.com
+ANTHROPIC_AUTH_TOKEN=your_token
+```
+
+### OpenAI-style
+```bash
+OPENAI_API_KEY=your_token
+OPENAI_BASE_URL=https://crazyrouter.com/v1
+```
+
+This makes the setup more flexible for Claude Code and other coding tools.
+
+---
+
+## ✅ After Installation
+
+Open a **new terminal** and test:
+
+```bash
+claude --version
+```
+
+Then inside a project:
+
+```bash
+claude
+```
+
+---
+
+## 📦 Manual Setup (if you do not want remote-exec)
+
+### Windows
+```powershell
+git clone https://github.com/xujfcn/crazyrouter-claude-code.git
+cd crazyrouter-claude-code
+powershell -ExecutionPolicy Bypass -File .\windows\setup.ps1
+```
+
+### macOS / Linux
 ```bash
 git clone https://github.com/xujfcn/crazyrouter-claude-code.git
 cd crazyrouter-claude-code
@@ -56,59 +118,32 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-## 📋 Detailed Configuration
-
-### Method 1: Environment Variables (Recommended)
-
-```bash
-# Required
-export ANTHROPIC_BASE_URL=https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community
-export ANTHROPIC_API_KEY=sk-your-crazyrouter-key
-
-# Optional: Set default model
-export CLAUDE_MODEL=claude-sonnet-4-20250514
-```
-
-### Method 2: Claude Code Settings
-
-Run `claude` and use `/config` to set:
-
-```
-API Base URL: https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community
-API Key: sk-your-crazyrouter-key
-```
-
-### Available Models
-
-| Model ID | Description |
-|----------|-------------|
-| `claude-opus-4-20250514` | Most capable, best for complex tasks |
-| `claude-sonnet-4-20250514` | Balanced performance and cost |
-| `claude-haiku-3-5-20241022` | Fastest, most affordable |
+---
 
 ## ❓ FAQ
 
-**Q: Is Crazyrouter compatible with Claude Code?**
-A: Yes, 100% compatible. Crazyrouter provides an Anthropic-compatible API endpoint.
+### Is this officially Claude Code?
+No. Claude Code itself is published by Anthropic. This repo is an installer/config helper that sets Claude Code up to use Crazyrouter.
 
-**Q: Will I lose any features?**
-A: No. All Claude Code features work exactly the same — streaming, tool use, file editing, etc.
+### Do I need an Anthropic key?
+No. The goal here is to let you use a **Crazyrouter token only**.
 
-**Q: How does Crazyrouter offer lower prices?**
-A: Crazyrouter aggregates API usage across users and passes volume discounts to you.
+### Does this also work for other tools?
+Yes. Because the installer also saves OpenAI-compatible variables, it can help with other AI coding tools too.
 
-**Q: Can I use other models too?**
-A: Yes! With a single Crazyrouter key, you can access GPT-4o, Gemini, Llama, and 200+ other models.
+### Why both `ANTHROPIC_*` and `OPENAI_*` vars?
+Different tools expect different naming. Saving both reduces setup friction.
 
-**Q: Is my data safe?**
-A: Crazyrouter does not store or log your prompts or completions. All traffic is encrypted via HTTPS.
+---
 
 ## 🔗 Links
 
-- 🌐 [Crazyrouter Website](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community?ref=github)
-- 📖 [API Documentation](https://crazyrouter.com/docs?ref=github&utm_source=github&utm_medium=github&utm_campaign=dev_community)
-- 💬 [Telegram Community](https://t.me/crazyrouter)
+- 🌐 [Crazyrouter Website](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)
+- 📖 [API Documentation](https://docs.crazyrouter.com)
+- 💬 [Telegram Community](https://t.me/crzrouter)
 - 🐦 [Twitter @metaviiii](https://twitter.com/metaviiii)
+
+---
 
 ## 📄 License
 
