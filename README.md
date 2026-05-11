@@ -1,5 +1,7 @@
 # 🚀 用 Crazyrouter 一键配置 Claude Code
 
+[English README](README.en.md) | 中文说明
+
 > **只需要一个 Crazyrouter Token**，即可快速安装并配置 Claude Code。适合直接给用户复制命令使用。
 
 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) 是一个 AI API 网关。你可以通过一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型，并统一走一个接口。
