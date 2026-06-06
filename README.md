@@ -177,7 +177,7 @@ Claude Code 本身是 Anthropic 的 CLI 工具。这个仓库的作用是：
 ANTHROPIC_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-sonnet-4
-CLAUDE_MODEL=claude-haiku-3.5
+CLAUDE_MODEL=claude-haiku-4.5
 ```
 
 ---

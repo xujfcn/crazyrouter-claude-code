@@ -187,7 +187,7 @@ Examples:
 ANTHROPIC_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-sonnet-4
-CLAUDE_MODEL=claude-haiku-3.5
+CLAUDE_MODEL=claude-haiku-4.5
 ```
 
 Check Crazyrouter's model list before using a model in production.
