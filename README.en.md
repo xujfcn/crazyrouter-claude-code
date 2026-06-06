@@ -79,7 +79,7 @@ The installer writes both Anthropic-style and OpenAI-compatible variables for be
 ### Anthropic-style variables
 
 ```bash
-ANTHROPIC_BASE_URL=https://crazyrouter.com
+ANTHROPIC_BASE_URL=https://cn.crazyrouter.com
 ANTHROPIC_AUTH_TOKEN=your_token
 ```
 
@@ -87,7 +87,7 @@ ANTHROPIC_AUTH_TOKEN=your_token
 
 ```bash
 OPENAI_API_KEY=your_token
-OPENAI_BASE_URL=https://crazyrouter.com/v1
+OPENAI_BASE_URL=https://cn.crazyrouter.com/v1
 ```
 
 Why both?
@@ -96,7 +96,7 @@ Why both?
 - Other AI coding tools often use OpenAI-compatible settings.
 - Saving both reduces setup friction for users.
 
-> Important: API endpoints should not include UTM parameters. Use `https://crazyrouter.com/v1`, not a URL with `?utm_source=...`.
+> Important: API endpoints should not include UTM parameters. Use `https://cn.crazyrouter.com/v1`, not a URL with `?utm_source=...`.
 
 ---
 
@@ -179,13 +179,14 @@ Different AI coding tools read different environment variable names. Setting bot
 
 ### What model name should I use?
 
-Model availability can change. Prefer general model names supported by Crazyrouter instead of hard-coding dated IDs in docs.
+The installer sets `claude-opus-4-8` by default. You can override the model later through environment variables.
 
 Examples:
 
 ```bash
+ANTHROPIC_MODEL=claude-opus-4-8
+CLAUDE_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-sonnet-4
-CLAUDE_MODEL=claude-opus-4-6
 CLAUDE_MODEL=claude-haiku-3.5
 ```
 

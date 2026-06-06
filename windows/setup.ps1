@@ -131,14 +131,18 @@ function Set-CrazyrouterEnv($token) {
   Write-Step "Saving Crazyrouter environment variables"
 
   [Environment]::SetEnvironmentVariable('OPENAI_API_KEY', $token, 'User')
-  [Environment]::SetEnvironmentVariable('OPENAI_BASE_URL', 'https://crazyrouter.com/v1', 'User')
+  [Environment]::SetEnvironmentVariable('OPENAI_BASE_URL', 'https://cn.crazyrouter.com/v1', 'User')
   [Environment]::SetEnvironmentVariable('ANTHROPIC_AUTH_TOKEN', $token, 'User')
-  [Environment]::SetEnvironmentVariable('ANTHROPIC_BASE_URL', 'https://crazyrouter.com', 'User')
+  [Environment]::SetEnvironmentVariable('ANTHROPIC_BASE_URL', 'https://cn.crazyrouter.com', 'User')
+  [Environment]::SetEnvironmentVariable('ANTHROPIC_MODEL', 'claude-opus-4-8', 'User')
+  [Environment]::SetEnvironmentVariable('CLAUDE_MODEL', 'claude-opus-4-8', 'User')
 
   $env:OPENAI_API_KEY = $token
-  $env:OPENAI_BASE_URL = 'https://crazyrouter.com/v1'
+  $env:OPENAI_BASE_URL = 'https://cn.crazyrouter.com/v1'
   $env:ANTHROPIC_AUTH_TOKEN = $token
-  $env:ANTHROPIC_BASE_URL = 'https://crazyrouter.com'
+  $env:ANTHROPIC_BASE_URL = 'https://cn.crazyrouter.com'
+  $env:ANTHROPIC_MODEL = 'claude-opus-4-8'
+  $env:CLAUDE_MODEL = 'claude-opus-4-8'
 
   Write-Ok "Crazyrouter token saved for current user"
 }
@@ -179,9 +183,11 @@ function Show-NextSteps($repoPath) {
   Write-Host ""
   Write-Host "Saved env vars:" -ForegroundColor White
   Write-Host "- OPENAI_API_KEY" -ForegroundColor Gray
-  Write-Host "- OPENAI_BASE_URL=https://crazyrouter.com/v1" -ForegroundColor Gray
+  Write-Host "- OPENAI_BASE_URL=https://cn.crazyrouter.com/v1" -ForegroundColor Gray
   Write-Host "- ANTHROPIC_AUTH_TOKEN" -ForegroundColor Gray
-  Write-Host "- ANTHROPIC_BASE_URL=https://crazyrouter.com" -ForegroundColor Gray
+  Write-Host "- ANTHROPIC_BASE_URL=https://cn.crazyrouter.com" -ForegroundColor Gray
+  Write-Host "- ANTHROPIC_MODEL=claude-opus-4-8" -ForegroundColor Gray
+  Write-Host "- CLAUDE_MODEL=claude-opus-4-8" -ForegroundColor Gray
 }
 
 try {

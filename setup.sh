@@ -119,10 +119,12 @@ write_exports() {
   cat >> "$shell_rc" <<EOF
 
 # >>> Crazyrouter Claude Code >>>
-export ANTHROPIC_BASE_URL="https://crazyrouter.com"
+export ANTHROPIC_BASE_URL="https://cn.crazyrouter.com"
 export ANTHROPIC_AUTH_TOKEN="$api_key"
 export OPENAI_API_KEY="$api_key"
-export OPENAI_BASE_URL="https://crazyrouter.com/v1"
+export OPENAI_BASE_URL="https://cn.crazyrouter.com/v1"
+export ANTHROPIC_MODEL="claude-opus-4-8"
+export CLAUDE_MODEL="claude-opus-4-8"
 # <<< Crazyrouter Claude Code <<<
 EOF
 }
@@ -142,7 +144,7 @@ main() {
   read -r -p "Crazyrouter token: " API_KEY
 
   if [ -z "$API_KEY" ]; then
-    echo "❌ No token provided. Get one at https://crazyrouter.com"
+    echo "❌ No token provided. Get one at https://cn.crazyrouter.com"
     exit 1
   fi
 
@@ -158,10 +160,12 @@ main() {
   say "Saving configuration to $SHELL_RC"
   write_exports "$SHELL_RC" "$API_KEY"
 
-  export ANTHROPIC_BASE_URL="https://crazyrouter.com"
+  export ANTHROPIC_BASE_URL="https://cn.crazyrouter.com"
   export ANTHROPIC_AUTH_TOKEN="$API_KEY"
   export OPENAI_API_KEY="$API_KEY"
-  export OPENAI_BASE_URL="https://crazyrouter.com/v1"
+  export OPENAI_BASE_URL="https://cn.crazyrouter.com/v1"
+  export ANTHROPIC_MODEL="claude-opus-4-8"
+  export CLAUDE_MODEL="claude-opus-4-8"
 
   ok "Configuration saved"
   echo ""
@@ -171,10 +175,12 @@ main() {
   echo "3. Start using Claude Code normally: claude"
   echo ""
   echo "Saved variables:"
-  echo "- ANTHROPIC_BASE_URL=https://crazyrouter.com"
+  echo "- ANTHROPIC_BASE_URL=https://cn.crazyrouter.com"
   echo "- ANTHROPIC_AUTH_TOKEN=<your token>"
   echo "- OPENAI_API_KEY=<your token>"
-  echo "- OPENAI_BASE_URL=https://crazyrouter.com/v1"
+  echo "- OPENAI_BASE_URL=https://cn.crazyrouter.com/v1"
+  echo "- ANTHROPIC_MODEL=claude-opus-4-8"
+  echo "- CLAUDE_MODEL=claude-opus-4-8"
 }
 
 main "$@"

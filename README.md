@@ -74,14 +74,14 @@ curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main
 
 ### Anthropic 风格变量
 ```bash
-ANTHROPIC_BASE_URL=https://crazyrouter.com
+ANTHROPIC_BASE_URL=https://cn.crazyrouter.com
 ANTHROPIC_AUTH_TOKEN=你的_token
 ```
 
 ### OpenAI 风格变量
 ```bash
 OPENAI_API_KEY=你的_token
-OPENAI_BASE_URL=https://crazyrouter.com/v1
+OPENAI_BASE_URL=https://cn.crazyrouter.com/v1
 ```
 
 这样做的好处：
@@ -169,13 +169,14 @@ Claude Code 本身是 Anthropic 的 CLI 工具。这个仓库的作用是：
 保存两套变量可以减少兼容问题，也方便后续扩展到其他 AI Coding Tools。
 
 ### 5）现在推荐的模型名怎么写？
-如果你后续想自己指定模型，建议优先用 **通用模型名**，不要在 README 首页写太死的 dated model id。
+脚本默认会设置 `claude-opus-4-8`。如果你后续想自己指定模型，可以改环境变量。
 
-例如（2026 年 3 月推荐写法）：
+例如（2026 年 6 月推荐写法）：
 
 ```bash
+ANTHROPIC_MODEL=claude-opus-4-8
+CLAUDE_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-sonnet-4
-CLAUDE_MODEL=claude-opus-4-6
 CLAUDE_MODEL=claude-haiku-3.5
 ```
 
