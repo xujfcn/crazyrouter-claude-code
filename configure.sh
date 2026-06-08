@@ -14,21 +14,31 @@ say() { echo -e "${CYAN}==> $1${NC}"; }
 ok() { echo -e "${GREEN}[OK] $1${NC}"; }
 warn() { echo -e "${YELLOW}[WARN] $1${NC}"; }
 
+prompt_input() {
+  # In curl | bash, stdin is the downloaded script. Read from /dev/tty instead.
+  # If /dev/tty is unavailable, return the default so env-var driven runs never hang.
+  local prompt="$1"
+  local default_value="${2:-}"
+  local value=""
+  if { exec 3</dev/tty 4>/dev/tty; } 2>/dev/null; then
+    if [ -n "$default_value" ]; then
+      printf "%s [%s]: " "$prompt" "$default_value" >&4
+    else
+      printf "%s: " "$prompt" >&4
+    fi
+    IFS= read -r value <&3 || value=""
+    exec 3<&- 4>&-
+  fi
+  if [ -z "$value" ]; then
+    value="$default_value"
+  fi
+  printf '%s' "$value"
+}
+
 CLAUDE_BIN=""
 CLAUDE_BIN_DIR=""
 
-load_shell_profiles() {
-  # Interactive shells often define PATH in these files. curl | bash does not load them.
-  # Source them best-effort so aliases/PATH managed by npm/nvm/fnm can become visible.
-  for rc in "$HOME/.bashrc" "$HOME/.bash_profile" "$HOME/.profile" "$HOME/.zshrc"; do
-    [ -f "$rc" ] || continue
-    # shellcheck disable=SC1090
-    . "$rc" >/dev/null 2>&1 || true
-  done
-}
-
 add_common_paths() {
-  load_shell_profiles
   # curl | bash runs a non-login shell on many Linux servers, so user PATH may be incomplete.
   # Add common npm/global install locations before checking for Claude Code.
   local npm_prefix=""
@@ -213,7 +223,10 @@ main() {
   ensure_claude
 
   say "Enter your Crazyrouter token"
-  read -r -p "Crazyrouter token: " API_KEY
+  API_KEY="${CRAZYROUTER_TOKEN:-${ANTHROPIC_AUTH_TOKEN:-${OPENAI_API_KEY:-}}}"
+  if [ -z "$API_KEY" ]; then
+    API_KEY="$(prompt_input "Crazyrouter token")"
+  fi
 
   if [ -z "$API_KEY" ]; then
     echo "❌ No token provided. Get one at https://cn.crazyrouter.com"
@@ -224,11 +237,17 @@ main() {
     warn "Token format looks unusual. Continuing anyway."
   fi
 
-  read -r -p "Base URL [https://cn.crazyrouter.com]: " BASE_URL
+  BASE_URL="${CRAZYROUTER_BASE_URL:-}"
+  if [ -z "$BASE_URL" ]; then
+    BASE_URL="$(prompt_input "Base URL" "https://cn.crazyrouter.com")"
+  fi
   BASE_URL=${BASE_URL:-https://cn.crazyrouter.com}
   BASE_URL=${BASE_URL%/}
 
-  read -r -p "Default Claude model [claude-opus-4-8]: " MODEL
+  MODEL="${CLAUDE_MODEL:-${ANTHROPIC_MODEL:-}}"
+  if [ -z "$MODEL" ]; then
+    MODEL="$(prompt_input "Default Claude model" "claude-opus-4-8")"
+  fi
   MODEL=${MODEL:-claude-opus-4-8}
 
   SHELL_RC=$(pick_shell_rc)

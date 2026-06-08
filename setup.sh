@@ -14,6 +14,27 @@ say() { echo -e "${CYAN}==> $1${NC}"; }
 ok() { echo -e "${GREEN}[OK] $1${NC}"; }
 warn() { echo -e "${YELLOW}[WARN] $1${NC}"; }
 
+prompt_input() {
+  # In curl | bash, stdin is the downloaded script. Read from /dev/tty instead.
+  # If /dev/tty is unavailable, return the default so env-var driven runs never hang.
+  local prompt="$1"
+  local default_value="${2:-}"
+  local value=""
+  if { exec 3</dev/tty 4>/dev/tty; } 2>/dev/null; then
+    if [ -n "$default_value" ]; then
+      printf "%s [%s]: " "$prompt" "$default_value" >&4
+    else
+      printf "%s: " "$prompt" >&4
+    fi
+    IFS= read -r value <&3 || value=""
+    exec 3<&- 4>&-
+  fi
+  if [ -z "$value" ]; then
+    value="$default_value"
+  fi
+  printf '%s' "$value"
+}
+
 ensure_cmd() {
   command -v "$1" >/dev/null 2>&1
 }
@@ -161,7 +182,10 @@ main() {
   echo ""
 
   say "Enter your Crazyrouter token"
-  read -r -p "Crazyrouter token: " API_KEY
+  API_KEY="${CRAZYROUTER_TOKEN:-${ANTHROPIC_AUTH_TOKEN:-${OPENAI_API_KEY:-}}}"
+  if [ -z "$API_KEY" ]; then
+    API_KEY="$(prompt_input "Crazyrouter token")"
+  fi
 
   if [ -z "$API_KEY" ]; then
     echo "❌ No token provided. Get one at https://cn.crazyrouter.com"
