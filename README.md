@@ -18,7 +18,9 @@
 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
 ```
 
-脚本会检查本机是否已有 `claude` 命令，然后提示你输入：
+脚本会检查本机是否已有 `claude` 命令。针对 Rocky Linux / RHEL / CentOS 这类服务器，脚本会额外加载常见 npm 全局路径，例如 `/usr/local/bin`、`~/.local/bin`、`~/.npm-global/bin`，避免 `curl | bash` 非登录 shell 找不到已安装的 Claude Code。
+
+然后提示你输入：
 
 - Crazyrouter Token
 - Base URL，默认：`https://cn.crazyrouter.com`

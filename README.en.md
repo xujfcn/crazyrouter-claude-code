@@ -18,7 +18,9 @@ It is designed for users who already installed Claude Code. You do not need to r
 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
 ```
 
-The script checks that the `claude` command already exists, then asks for:
+The script checks that the `claude` command already exists. For Rocky Linux / RHEL / CentOS-style servers, it also loads common npm global paths such as `/usr/local/bin`, `~/.local/bin`, and `~/.npm-global/bin`, so `curl | bash` can find Claude Code even when a non-login shell has a minimal PATH.
+
+Then it asks for:
 
 - your Crazyrouter token
 - base URL, default: `https://cn.crazyrouter.com`

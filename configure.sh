@@ -14,15 +14,114 @@ say() { echo -e "${CYAN}==> $1${NC}"; }
 ok() { echo -e "${GREEN}[OK] $1${NC}"; }
 warn() { echo -e "${YELLOW}[WARN] $1${NC}"; }
 
-ensure_claude() {
-  if ! command -v claude >/dev/null 2>&1; then
-    echo "❌ Claude Code was not found in PATH."
-    echo "This lightweight script is for users who already installed Claude Code."
-    echo "Install Claude Code first, then rerun this script."
-    echo "Official docs: https://docs.anthropic.com/en/docs/claude-code"
-    exit 1
+CLAUDE_BIN=""
+CLAUDE_BIN_DIR=""
+
+load_shell_profiles() {
+  # Interactive shells often define PATH in these files. curl | bash does not load them.
+  # Source them best-effort so aliases/PATH managed by npm/nvm/fnm can become visible.
+  for rc in "$HOME/.bashrc" "$HOME/.bash_profile" "$HOME/.profile" "$HOME/.zshrc"; do
+    [ -f "$rc" ] || continue
+    # shellcheck disable=SC1090
+    . "$rc" >/dev/null 2>&1 || true
+  done
+}
+
+add_common_paths() {
+  load_shell_profiles
+  # curl | bash runs a non-login shell on many Linux servers, so user PATH may be incomplete.
+  # Add common npm/global install locations before checking for Claude Code.
+  local npm_prefix=""
+  if command -v npm >/dev/null 2>&1; then
+    npm_prefix="$(npm config get prefix 2>/dev/null || true)"
   fi
-  ok "Claude Code detected: $(claude --version 2>/dev/null || echo 'present')"
+
+  for dir in \
+    "$HOME/.npm-global/bin" \
+    "$HOME/.npm/bin" \
+    "$HOME/.local/bin" \
+    "$HOME/bin" \
+    "/usr/local/bin" \
+    "/usr/bin" \
+    ${npm_prefix:+"$npm_prefix/bin"} \
+    ${npm_prefix:+"$npm_prefix"}
+  do
+    [ -n "$dir" ] || continue
+    [ -d "$dir" ] || continue
+    case ":$PATH:" in
+      *":$dir:"*) ;;
+      *) export PATH="$dir:$PATH" ;;
+    esac
+  done
+}
+
+find_claude_binary() {
+  add_common_paths
+
+  if command -v claude >/dev/null 2>&1; then
+    command -v claude
+    return 0
+  fi
+
+  # Some npm installs create symlinks in locations that are not loaded by non-login shells.
+  local candidates=""
+  candidates="$candidates /usr/local/bin/claude /usr/bin/claude"
+  candidates="$candidates $HOME/.npm-global/bin/claude $HOME/.npm/bin/claude $HOME/.local/bin/claude $HOME/bin/claude"
+
+  if command -v npm >/dev/null 2>&1; then
+    local npm_prefix
+    npm_prefix="$(npm config get prefix 2>/dev/null || true)"
+    if [ -n "$npm_prefix" ]; then
+      candidates="$candidates $npm_prefix/bin/claude $npm_prefix/claude"
+    fi
+  fi
+
+  for bin in $candidates; do
+    if [ -x "$bin" ]; then
+      export PATH="$(dirname "$bin"):$PATH"
+      echo "$bin"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+ensure_claude() {
+  local claude_bin
+  if ! claude_bin="$(find_claude_binary)"; then
+    warn "Claude Code was not found in this non-login shell. Continuing with Crazyrouter configuration anyway."
+    echo ""
+    echo "This can happen on Rocky/RHEL/CentOS or other servers when Claude Code works interactively"
+    echo "but npm's global bin directory is not loaded by curl | bash."
+    echo ""
+    echo "Diagnostics:"
+    echo "- OS: $(. /etc/os-release 2>/dev/null && echo "${PRETTY_NAME:-unknown}" || uname -a)"
+    echo "- shell: ${SHELL:-unknown}"
+    echo "- PATH: $PATH"
+    if command -v npm >/dev/null 2>&1; then
+      echo "- npm prefix: $(npm config get prefix 2>/dev/null || echo unknown)"
+      echo "- npm global packages matching claude:"
+      npm list -g --depth=0 2>/dev/null | grep -i claude || true
+    else
+      echo "- npm: not found"
+    fi
+    echo ""
+    echo "The script will still save Crazyrouter variables. After it finishes, run:"
+    echo "  source $(pick_shell_rc)"
+    echo "  claude"
+    echo ""
+    echo "If Claude is still not found, use the full installer:"
+    echo "  curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash"
+    CLAUDE_BIN=""
+    CLAUDE_BIN_DIR=""
+    return 0
+  fi
+
+  CLAUDE_BIN="$claude_bin"
+  CLAUDE_BIN_DIR="$(dirname "$claude_bin")"
+  ok "Claude Code detected: $($claude_bin --version 2>/dev/null || echo 'present')"
+  ok "Claude Code path: $claude_bin"
 }
 
 pick_shell_rc() {
@@ -57,6 +156,13 @@ write_exports() {
   cat >> "$shell_rc" <<EOF
 
 # >>> Crazyrouter Claude Code >>>
+# Keep npm/Claude Code global bin available for non-login shells if we detected it.
+if [ -n "${CLAUDE_BIN_DIR:-}" ]; then
+  case ":$PATH:" in
+    *":$CLAUDE_BIN_DIR:"*) ;;
+    *) export PATH="$CLAUDE_BIN_DIR:$PATH" ;;
+  esac
+fi
 export ANTHROPIC_BASE_URL="$base_url"
 export ANTHROPIC_AUTH_TOKEN="$api_key"
 export OPENAI_API_KEY="$api_key"
