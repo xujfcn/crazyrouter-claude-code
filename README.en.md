@@ -15,6 +15,13 @@ It is designed for users who already installed Claude Code. You do not need to r
 ### macOS / Linux
 
 ```bash
+curl -fsSL -o /tmp/crazyrouter-configure.sh https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh
+bash /tmp/crazyrouter-configure.sh
+```
+
+One-line version also works, but make sure the command ends with `| bash`, not just `|`:
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
 ```
 
@@ -151,7 +158,8 @@ This repository still includes full one-click installers. They install Git, Node
 ### macOS / Linux full install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
+curl -fsSL -o /tmp/crazyrouter-setup.sh https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh
+bash /tmp/crazyrouter-setup.sh
 ```
 
 ### Windows full install

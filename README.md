@@ -15,6 +15,13 @@
 ### macOS / Linux
 
 ```bash
+curl -fsSL -o /tmp/crazyrouter-configure.sh https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh
+bash /tmp/crazyrouter-configure.sh
+```
+
+也可以用一行版，但注意最后必须有 `bash`，不要只输入到 `|`：
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
 ```
 
@@ -151,7 +158,8 @@ claude
 ### macOS / Linux 完整安装
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
+curl -fsSL -o /tmp/crazyrouter-setup.sh https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh
+bash /tmp/crazyrouter-setup.sh
 ```
 
 ### Windows 完整安装
