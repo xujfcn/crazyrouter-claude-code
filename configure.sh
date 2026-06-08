@@ -108,7 +108,7 @@ ensure_claude() {
     fi
     echo ""
     echo "The script will still save Crazyrouter variables. After it finishes, run:"
-    echo "  source $(pick_shell_rc)"
+    echo "  source $HOME/.crazyrouter-claude-code.env"
     echo "  claude"
     echo ""
     echo "If Claude is still not found, use the full installer:"
@@ -125,13 +125,25 @@ ensure_claude() {
 }
 
 pick_shell_rc() {
-  if [ -n "$ZSH_VERSION" ] || [ -f "$HOME/.zshrc" ]; then
-    echo "$HOME/.zshrc"
-  elif [ -n "$BASH_VERSION" ] || [ -f "$HOME/.bashrc" ]; then
-    echo "$HOME/.bashrc"
-  else
-    echo "$HOME/.profile"
-  fi
+  # Prefer the user's actual login shell. Do not choose .zshrc just because it exists.
+  # On Rocky/RHEL servers, users often have a stale .zshrc while their shell is bash.
+  local shell_name
+  shell_name="$(basename "${SHELL:-}" 2>/dev/null || true)"
+  case "$shell_name" in
+    zsh) echo "$HOME/.zshrc" ;;
+    bash) echo "$HOME/.bashrc" ;;
+    *)
+      if [ -n "$ZSH_VERSION" ]; then
+        echo "$HOME/.zshrc"
+      elif [ -n "$BASH_VERSION" ]; then
+        echo "$HOME/.bashrc"
+      elif [ -f "$HOME/.profile" ]; then
+        echo "$HOME/.profile"
+      else
+        echo "$HOME/.bashrc"
+      fi
+      ;;
+  esac
 }
 
 write_exports() {
@@ -139,6 +151,30 @@ write_exports() {
   local api_key="$2"
   local base_url="${3:-https://cn.crazyrouter.com}"
   local model="${4:-claude-opus-4-8}"
+  local env_file="$HOME/.crazyrouter-claude-code.env"
+
+  cat > "$env_file" <<EOF
+# Crazyrouter Claude Code environment
+# Source this file with: source $env_file
+EOF
+
+  if [ -n "${CLAUDE_BIN_DIR:-}" ]; then
+    cat >> "$env_file" <<EOF
+case ":\$PATH:" in
+  *":$CLAUDE_BIN_DIR:"*) ;;
+  *) export PATH="$CLAUDE_BIN_DIR:\$PATH" ;;
+esac
+EOF
+  fi
+
+  cat >> "$env_file" <<EOF
+export ANTHROPIC_BASE_URL="$base_url"
+export ANTHROPIC_AUTH_TOKEN="$api_key"
+export OPENAI_API_KEY="$api_key"
+export OPENAI_BASE_URL="$base_url/v1"
+export ANTHROPIC_MODEL="$model"
+export CLAUDE_MODEL="$model"
+EOF
 
   touch "$shell_rc"
 
@@ -156,19 +192,9 @@ write_exports() {
   cat >> "$shell_rc" <<EOF
 
 # >>> Crazyrouter Claude Code >>>
-# Keep npm/Claude Code global bin available for non-login shells if we detected it.
-if [ -n "${CLAUDE_BIN_DIR:-}" ]; then
-  case ":$PATH:" in
-    *":$CLAUDE_BIN_DIR:"*) ;;
-    *) export PATH="$CLAUDE_BIN_DIR:$PATH" ;;
-  esac
-fi
-export ANTHROPIC_BASE_URL="$base_url"
-export ANTHROPIC_AUTH_TOKEN="$api_key"
-export OPENAI_API_KEY="$api_key"
-export OPENAI_BASE_URL="$base_url/v1"
-export ANTHROPIC_MODEL="$model"
-export CLAUDE_MODEL="$model"
+# Shared config file written by crazyrouter-claude-code.
+# This avoids bash/zsh rc selection issues on Linux servers.
+[ -f "$HOME/.crazyrouter-claude-code.env" ] && . "$HOME/.crazyrouter-claude-code.env"
 # <<< Crazyrouter Claude Code <<<
 EOF
 }
@@ -219,8 +245,10 @@ main() {
   ok "Configuration saved"
   echo ""
   echo "Next steps:"
-  echo "1. Run: source $SHELL_RC"
+  echo "1. Run: source $HOME/.crazyrouter-claude-code.env"
   echo "2. Run: claude"
+  echo ""
+  echo "Also added a source line to: $SHELL_RC"
   echo ""
   echo "Saved variables:"
   echo "- ANTHROPIC_BASE_URL=$BASE_URL"

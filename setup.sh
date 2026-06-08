@@ -90,18 +90,42 @@ install_claude() {
 }
 
 pick_shell_rc() {
-  if [ -n "$ZSH_VERSION" ] || [ -f "$HOME/.zshrc" ]; then
-    echo "$HOME/.zshrc"
-  elif [ -n "$BASH_VERSION" ] || [ -f "$HOME/.bashrc" ]; then
-    echo "$HOME/.bashrc"
-  else
-    echo "$HOME/.profile"
-  fi
+  # Prefer the user's actual login shell. Do not choose .zshrc just because it exists.
+  # On Rocky/RHEL servers, users often have a stale .zshrc while their shell is bash.
+  local shell_name
+  shell_name="$(basename "${SHELL:-}" 2>/dev/null || true)"
+  case "$shell_name" in
+    zsh) echo "$HOME/.zshrc" ;;
+    bash) echo "$HOME/.bashrc" ;;
+    *)
+      if [ -n "$ZSH_VERSION" ]; then
+        echo "$HOME/.zshrc"
+      elif [ -n "$BASH_VERSION" ]; then
+        echo "$HOME/.bashrc"
+      elif [ -f "$HOME/.profile" ]; then
+        echo "$HOME/.profile"
+      else
+        echo "$HOME/.bashrc"
+      fi
+      ;;
+  esac
 }
 
 write_exports() {
   local shell_rc="$1"
   local api_key="$2"
+  local env_file="$HOME/.crazyrouter-claude-code.env"
+
+  cat > "$env_file" <<EOF
+# Crazyrouter Claude Code environment
+# Source this file with: source $env_file
+export ANTHROPIC_BASE_URL="https://cn.crazyrouter.com"
+export ANTHROPIC_AUTH_TOKEN="$api_key"
+export OPENAI_API_KEY="$api_key"
+export OPENAI_BASE_URL="https://cn.crazyrouter.com/v1"
+export ANTHROPIC_MODEL="claude-opus-4-8"
+export CLAUDE_MODEL="claude-opus-4-8"
+EOF
 
   touch "$shell_rc"
 
@@ -119,12 +143,8 @@ write_exports() {
   cat >> "$shell_rc" <<EOF
 
 # >>> Crazyrouter Claude Code >>>
-export ANTHROPIC_BASE_URL="https://cn.crazyrouter.com"
-export ANTHROPIC_AUTH_TOKEN="$api_key"
-export OPENAI_API_KEY="$api_key"
-export OPENAI_BASE_URL="https://cn.crazyrouter.com/v1"
-export ANTHROPIC_MODEL="claude-opus-4-8"
-export CLAUDE_MODEL="claude-opus-4-8"
+# Shared config file written by crazyrouter-claude-code.
+[ -f "$HOME/.crazyrouter-claude-code.env" ] && . "$HOME/.crazyrouter-claude-code.env"
 # <<< Crazyrouter Claude Code <<<
 EOF
 }
@@ -170,9 +190,11 @@ main() {
   ok "Configuration saved"
   echo ""
   echo "Next steps:"
-  echo "1. Run: source $SHELL_RC"
+  echo "1. Run: source $HOME/.crazyrouter-claude-code.env"
   echo "2. Run: claude --version"
   echo "3. Start using Claude Code normally: claude"
+  echo ""
+  echo "Also added a source line to: $SHELL_RC"
   echo ""
   echo "Saved variables:"
   echo "- ANTHROPIC_BASE_URL=https://cn.crazyrouter.com"
