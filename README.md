@@ -1,129 +1,161 @@
-# 🚀 用 Crazyrouter 一键配置 Claude Code
+# ⚡ 已安装 Claude Code？只需配置 Crazyrouter 地址和 Token
 
 [English README](README.en.md) | 中文说明
 
-> **只需要一个 Crazyrouter Token**，即可快速安装并配置 Claude Code。适合直接给用户复制命令使用。
+这个仓库提供一个**简化版 Claude Code + Crazyrouter 配置工具**。
 
-[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) 是一个 AI API 网关。你可以通过一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型，并统一走一个接口。
+适合已经安装好 Claude Code 的用户：不用重装 Claude Code，只需要把 Claude Code 的接入地址改成 Crazyrouter，并保存你的 Crazyrouter Token。
 
-这个仓库的目标很简单：
-
-- 自动安装 **Claude Code**
-- 自动配置 **Crazyrouter** 所需环境变量
-- 用户只需要 **粘贴一条命令 + 输入 Crazyrouter Token**
+[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) 是 AI API 网关。你可以用一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型。
 
 ---
 
-## ⚡ 一键安装
-
-### Windows（PowerShell）
-复制后直接运行：
-
-```powershell
-powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex"
-```
-
-更短版本：
-
-```powershell
-irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex
-```
-
-这个脚本会自动完成：
-- 安装 Git
-- 安装 Node.js LTS
-- 安装 Claude Code
-- 提示输入 Crazyrouter Token
-- 自动保存环境变量
-- 自动创建测试目录
-
----
+## 🚀 最快用法：只配置，不安装
 
 ### macOS / Linux
-复制后直接运行：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
 ```
 
-这个脚本会自动完成：
-- 安装 Git（如未安装）
-- 安装 Node.js（如未安装）
-- 安装 Claude Code
-- 提示输入 Crazyrouter Token
-- 自动写入 shell 配置文件
+脚本会检查本机是否已有 `claude` 命令，然后提示你输入：
 
----
+- Crazyrouter Token
+- Base URL，默认：`https://cn.crazyrouter.com`
+- 默认 Claude 模型，默认：`claude-opus-4-8`
 
-## 🔑 我需要准备什么？
-
-你只需要准备：
-
-- **一个 Crazyrouter API Key / Token**
-
-获取地址：
-- <https://crazyrouter.com>
-
-运行安装脚本后，按提示粘贴 Token 即可。
-
----
-
-## 🧩 脚本会写入哪些环境变量？
-
-为了兼容 Claude Code 以及其他 AI 编程工具，脚本会同时保存两套变量：
-
-### Anthropic 风格变量
-```bash
-ANTHROPIC_BASE_URL=https://cn.crazyrouter.com
-ANTHROPIC_AUTH_TOKEN=你的_token
-```
-
-### OpenAI 风格变量
-```bash
-OPENAI_API_KEY=你的_token
-OPENAI_BASE_URL=https://cn.crazyrouter.com/v1
-```
-
-这样做的好处：
-- Claude Code 更容易直接接上 Crazyrouter
-- 其他工具（如部分 OpenAI 兼容工具）也能直接复用
-- 用户不用理解太多底层差异
-
----
-
-## ✅ 安装完成后怎么验证？
-
-安装结束后，打开一个**新的终端窗口**，执行：
-
-```bash
-claude --version
-```
-
-然后进入任意项目目录执行：
+完成后打开新终端，运行：
 
 ```bash
 claude
 ```
 
-如果能正常启动，就说明已经基本配置完成。
+---
+
+### Windows PowerShell
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/configure.ps1 | iex"
+```
+
+短写：
+
+```powershell
+irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/configure.ps1 | iex
+```
+
+完成后打开新的 PowerShell，运行：
+
+```powershell
+claude
+```
 
 ---
 
-## 📦 如果不想远程执行，也可以手动跑
+## 🔑 你需要准备什么？
 
-### Windows
-```powershell
-git clone https://github.com/xujfcn/crazyrouter-claude-code.git
-cd crazyrouter-claude-code
-powershell -ExecutionPolicy Bypass -File .\windows\setup.ps1
+只需要：
+
+- 已安装好的 **Claude Code**
+- 一个 **Crazyrouter API Key / Token**
+
+获取 Token：
+
+- <https://cn.crazyrouter.com>
+- <https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo>
+
+---
+
+## 🧩 脚本会配置什么？
+
+### Anthropic / Claude Code 相关变量
+
+```bash
+ANTHROPIC_BASE_URL=https://cn.crazyrouter.com
+ANTHROPIC_AUTH_TOKEN=你的_token
+ANTHROPIC_MODEL=claude-opus-4-8
+CLAUDE_MODEL=claude-opus-4-8
 ```
 
-### macOS / Linux
+### OpenAI 兼容变量，方便其他 AI Coding Tools 复用
+
 ```bash
-git clone https://github.com/xujfcn/crazyrouter-claude-code.git
-cd crazyrouter-claude-code
-chmod +x setup.sh
-./setup.sh
+OPENAI_API_KEY=你的_token
+OPENAI_BASE_URL=https://cn.crazyrouter.com/v1
+```
+
+注意：代码里的 API endpoint 不要加 UTM 参数。应该使用 `https://cn.crazyrouter.com/v1`，不要使用带 `?utm_source=...` 的 URL。
+
+---
+
+## 🛠️ 手动配置
+
+如果不想运行脚本，也可以手动配置。
+
+### macOS / Linux
+
+把下面内容加入 `~/.zshrc`、`~/.bashrc` 或 `~/.profile`：
+
+```bash
+export ANTHROPIC_BASE_URL="https://cn.crazyrouter.com"
+export ANTHROPIC_AUTH_TOKEN="你的_token"
+export OPENAI_API_KEY="你的_token"
+export OPENAI_BASE_URL="https://cn.crazyrouter.com/v1"
+export ANTHROPIC_MODEL="claude-opus-4-8"
+export CLAUDE_MODEL="claude-opus-4-8"
+```
+
+然后执行：
+
+```bash
+source ~/.zshrc   # 如果你用 zsh
+claude
+```
+
+### Windows PowerShell
+
+```powershell
+[Environment]::SetEnvironmentVariable('ANTHROPIC_BASE_URL', 'https://cn.crazyrouter.com', 'User')
+[Environment]::SetEnvironmentVariable('ANTHROPIC_AUTH_TOKEN', '你的_token', 'User')
+[Environment]::SetEnvironmentVariable('OPENAI_API_KEY', '你的_token', 'User')
+[Environment]::SetEnvironmentVariable('OPENAI_BASE_URL', 'https://cn.crazyrouter.com/v1', 'User')
+[Environment]::SetEnvironmentVariable('ANTHROPIC_MODEL', 'claude-opus-4-8', 'User')
+[Environment]::SetEnvironmentVariable('CLAUDE_MODEL', 'claude-opus-4-8', 'User')
+```
+
+然后打开新的 PowerShell：
+
+```powershell
+claude
+```
+
+---
+
+## ✅ 怎么验证？
+
+```bash
+claude --version
+claude
+```
+
+如果 Claude Code 能正常启动，并且请求走 Crazyrouter，就配置完成。
+
+---
+
+## 📦 如果你还没安装 Claude Code
+
+本仓库也保留了完整一键安装脚本，会安装 Git、Node.js、Claude Code，并写入 Crazyrouter 配置。
+
+### macOS / Linux 完整安装
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
+```
+
+### Windows 完整安装
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex"
 ```
 
 ---
@@ -132,59 +164,54 @@ chmod +x setup.sh
 
 ```text
 crazyrouter-claude-code/
-├── README.md            # 中文说明
-├── .env.example         # 环境变量示例
-├── setup.sh             # macOS / Linux 一键脚本
+├── README.md              # 中文说明
+├── README.en.md           # English README
+├── .env.example           # 环境变量示例
+├── configure.sh           # macOS / Linux：只配置，不安装
+├── setup.sh               # macOS / Linux：完整安装 + 配置
 └── windows/
-    └── setup.ps1        # Windows PowerShell 一键脚本
+    ├── configure.ps1      # Windows：只配置，不安装
+    └── setup.ps1          # Windows：完整安装 + 配置
 ```
 
 ---
 
 ## ❓常见问题
 
-### 1）这是 Claude Code 官方项目吗？
-不是。
+### 1）这个仓库会安装 Claude Code 吗？
 
-Claude Code 本身是 Anthropic 的 CLI 工具。这个仓库的作用是：
-**帮助用户更快地安装 Claude Code，并配置成走 Crazyrouter。**
+默认推荐的 `configure.sh` / `configure.ps1` **不会安装** Claude Code。它只适合已经安装 Claude Code 的用户。
 
-### 2）必须要 Anthropic 的 Key 吗？
-不需要。
+如果你还没安装，可以使用 `setup.sh` / `setup.ps1` 完整安装脚本。
 
-这个仓库的目标就是：
-**尽量让用户只输入 Crazyrouter Token 就能完成配置。**
+### 2）必须要 Anthropic Key 吗？
 
-### 3）会影响 Claude Code 原有功能吗？
-一般不会。
+不需要。目标就是让你用 Crazyrouter Token 配置 Claude Code。
 
-这个仓库主要做的是：
-- 安装工具
-- 写环境变量
-- 降低配置门槛
+### 3）为什么同时写 `ANTHROPIC_*` 和 `OPENAI_*`？
 
-### 4）为什么同时写 `ANTHROPIC_*` 和 `OPENAI_*` 变量？
-因为不同工具的识别方式不完全一样。
+Claude Code 更偏 Anthropic 风格变量，其他 AI Coding Tools 常用 OpenAI 兼容变量。两套都写，方便复用同一个 Crazyrouter Token。
 
-保存两套变量可以减少兼容问题，也方便后续扩展到其他 AI Coding Tools。
+### 4）默认模型是什么？
 
-### 5）现在推荐的模型名怎么写？
-脚本默认会设置 `claude-opus-4-8`。如果你后续想自己指定模型，可以改环境变量。
+默认：`claude-opus-4-8`。
 
-例如（2026 年 6 月推荐写法）：
+你也可以改成 Crazyrouter 支持的其他 Claude 模型，例如：
 
 ```bash
-ANTHROPIC_MODEL=claude-opus-4-8
-CLAUDE_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-sonnet-4
 CLAUDE_MODEL=claude-haiku-4.5
 ```
+
+### 5）这个仓库是 Claude Code 官方项目吗？
+
+不是。Claude Code 是 Anthropic 的 CLI 工具。本仓库只是帮助用户把已安装的 Claude Code 更快配置到 Crazyrouter。
 
 ---
 
 ## 🔗 相关链接
 
-- 🌐 Crazyrouter 官网：<https://crazyrouter.com>
+- 🌐 Crazyrouter 官网：<https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo>
 - 📖 API 文档：<https://docs.crazyrouter.com>
 - 💬 Telegram：<https://t.me/crzrouter>
 - 🐦 Twitter / X：<https://twitter.com/metaviiii>

@@ -1,142 +1,161 @@
-# 🚀 One-Command Claude Code Setup with Crazyrouter
+# ⚡ Already Installed Claude Code? Configure Crazyrouter Base URL + Token Only
 
-> Configure Claude Code to use Crazyrouter with one command. Users only need a Crazyrouter API key.
+[中文说明](README.md) | English README
 
-[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) is an AI API gateway. With one API key, you can access Claude, GPT, Gemini, DeepSeek, and many other models through a unified interface.
+This repository provides a **lightweight Claude Code + Crazyrouter configuration tool**.
 
-This repository helps users:
+It is designed for users who already installed Claude Code. You do not need to reinstall Claude Code. You only need to point Claude Code to Crazyrouter and save your Crazyrouter token.
 
-- install **Claude Code**
-- configure Claude Code to use **Crazyrouter**
-- save the required environment variables automatically
-- start using Claude Code with minimal setup
+[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) is an AI API gateway. With one API key, you can access Claude, GPT, Gemini, DeepSeek, and many other models.
 
 ---
 
-## ⚡ One-command install
+## 🚀 Fastest path: configure only, no install
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
+```
+
+The script checks that the `claude` command already exists, then asks for:
+
+- your Crazyrouter token
+- base URL, default: `https://cn.crazyrouter.com`
+- default Claude model, default: `claude-opus-4-8`
+
+After it finishes, open a new terminal and run:
+
+```bash
+claude
+```
+
+---
 
 ### Windows PowerShell
 
-Copy and run:
-
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex"
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/configure.ps1 | iex"
 ```
 
 Short version:
 
 ```powershell
-irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex
+irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/configure.ps1 | iex
 ```
 
-The script will:
+After it finishes, open a new PowerShell window and run:
 
-- install Git if needed
-- install Node.js LTS if needed
-- install Claude Code
-- ask for your Crazyrouter API key
-- save environment variables
-- create a test workspace
+```powershell
+claude
+```
 
 ---
 
-### macOS / Linux
-
-Copy and run:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
-```
-
-The script will:
-
-- install Git if needed
-- install Node.js if needed
-- install Claude Code
-- ask for your Crazyrouter API key
-- write environment variables to your shell profile
-
----
-
-## 🔑 What do I need?
+## 🔑 What do you need?
 
 You only need:
 
+- **Claude Code** already installed
 - a **Crazyrouter API key / token**
 
-Get one here:
+Get a token here:
 
+- <https://cn.crazyrouter.com>
 - <https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo>
-
-After running the installer, paste your token when prompted.
 
 ---
 
-## 🧩 What environment variables are configured?
+## 🧩 What does the script configure?
 
-The installer writes both Anthropic-style and OpenAI-compatible variables for better tool compatibility.
-
-### Anthropic-style variables
+### Anthropic / Claude Code variables
 
 ```bash
 ANTHROPIC_BASE_URL=https://cn.crazyrouter.com
 ANTHROPIC_AUTH_TOKEN=your_token
+ANTHROPIC_MODEL=claude-opus-4-8
+CLAUDE_MODEL=claude-opus-4-8
 ```
 
-### OpenAI-compatible variables
+### OpenAI-compatible variables for other AI coding tools
 
 ```bash
 OPENAI_API_KEY=your_token
 OPENAI_BASE_URL=https://cn.crazyrouter.com/v1
 ```
 
-Why both?
-
-- Claude Code can use Anthropic-style settings.
-- Other AI coding tools often use OpenAI-compatible settings.
-- Saving both reduces setup friction for users.
-
-> Important: API endpoints should not include UTM parameters. Use `https://cn.crazyrouter.com/v1`, not a URL with `?utm_source=...`.
+Important: API endpoints should not include UTM parameters. Use `https://cn.crazyrouter.com/v1`, not a URL with `?utm_source=...`.
 
 ---
 
-## ✅ Verify installation
+## 🛠️ Manual configuration
 
-After installation, open a **new terminal window** and run:
-
-```bash
-claude --version
-```
-
-Then go into any project folder and run:
-
-```bash
-claude
-```
-
-If Claude Code starts normally, the setup is complete.
-
----
-
-## 📦 Manual install
-
-If you do not want to run a remote script, clone this repository and run the installer locally.
-
-### Windows
-
-```powershell
-git clone https://github.com/xujfcn/crazyrouter-claude-code.git
-cd crazyrouter-claude-code
-powershell -ExecutionPolicy Bypass -File .\windows\setup.ps1
-```
+If you do not want to run a script, configure the variables manually.
 
 ### macOS / Linux
 
+Add this to `~/.zshrc`, `~/.bashrc`, or `~/.profile`:
+
 ```bash
-git clone https://github.com/xujfcn/crazyrouter-claude-code.git
-cd crazyrouter-claude-code
-chmod +x setup.sh
-./setup.sh
+export ANTHROPIC_BASE_URL="https://cn.crazyrouter.com"
+export ANTHROPIC_AUTH_TOKEN="your_token"
+export OPENAI_API_KEY="your_token"
+export OPENAI_BASE_URL="https://cn.crazyrouter.com/v1"
+export ANTHROPIC_MODEL="claude-opus-4-8"
+export CLAUDE_MODEL="claude-opus-4-8"
+```
+
+Then run:
+
+```bash
+source ~/.zshrc   # if you use zsh
+claude
+```
+
+### Windows PowerShell
+
+```powershell
+[Environment]::SetEnvironmentVariable('ANTHROPIC_BASE_URL', 'https://cn.crazyrouter.com', 'User')
+[Environment]::SetEnvironmentVariable('ANTHROPIC_AUTH_TOKEN', 'your_token', 'User')
+[Environment]::SetEnvironmentVariable('OPENAI_API_KEY', 'your_token', 'User')
+[Environment]::SetEnvironmentVariable('OPENAI_BASE_URL', 'https://cn.crazyrouter.com/v1', 'User')
+[Environment]::SetEnvironmentVariable('ANTHROPIC_MODEL', 'claude-opus-4-8', 'User')
+[Environment]::SetEnvironmentVariable('CLAUDE_MODEL', 'claude-opus-4-8', 'User')
+```
+
+Then open a new PowerShell window:
+
+```powershell
+claude
+```
+
+---
+
+## ✅ Verify
+
+```bash
+claude --version
+claude
+```
+
+If Claude Code starts normally and requests go through Crazyrouter, the setup is done.
+
+---
+
+## 📦 If Claude Code is not installed yet
+
+This repository still includes full one-click installers. They install Git, Node.js, Claude Code, and then configure Crazyrouter.
+
+### macOS / Linux full install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
+```
+
+### Windows full install
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex"
 ```
 
 ---
@@ -145,52 +164,48 @@ chmod +x setup.sh
 
 ```text
 crazyrouter-claude-code/
-├── README.md            # Chinese README
-├── README.en.md         # English README
-├── .env.example         # environment variable example
-├── setup.sh             # macOS / Linux setup script
+├── README.md              # Chinese README
+├── README.en.md           # English README
+├── .env.example           # environment variable example
+├── configure.sh           # macOS / Linux: configure only, no install
+├── setup.sh               # macOS / Linux: full install + config
 └── windows/
-    └── setup.ps1        # Windows PowerShell setup script
+    ├── configure.ps1      # Windows: configure only, no install
+    └── setup.ps1          # Windows: full install + config
 ```
 
 ---
 
 ## ❓ FAQ
 
-### Is this the official Claude Code project?
+### Does this repository install Claude Code?
 
-No.
+The recommended `configure.sh` / `configure.ps1` scripts do **not** install Claude Code. They are for users who already installed Claude Code.
 
-Claude Code is Anthropic's CLI tool. This repository simply helps users install Claude Code and configure it to use Crazyrouter faster.
+If you have not installed Claude Code yet, use `setup.sh` / `setup.ps1`.
 
 ### Do I need an Anthropic API key?
 
-No.
+No. The goal is to configure Claude Code with your Crazyrouter token.
 
-The goal of this repository is to let users configure Claude Code with a Crazyrouter token.
+### Why set both `ANTHROPIC_*` and `OPENAI_*` variables?
 
-### Will this break my existing Claude Code setup?
+Claude Code commonly uses Anthropic-style settings. Other AI coding tools often use OpenAI-compatible settings. Saving both makes the same Crazyrouter token reusable.
 
-The script mainly installs tools and writes environment variables. If you already have a custom setup, review the script before running it.
+### What is the default model?
 
-### Why does the script set both `ANTHROPIC_*` and `OPENAI_*` variables?
+Default: `claude-opus-4-8`.
 
-Different AI coding tools read different environment variable names. Setting both improves compatibility and makes it easier to reuse the same Crazyrouter token across tools.
-
-### What model name should I use?
-
-The installer sets `claude-opus-4-8` by default. You can override the model later through environment variables.
-
-Examples:
+You can change it to another Claude model supported by Crazyrouter, for example:
 
 ```bash
-ANTHROPIC_MODEL=claude-opus-4-8
-CLAUDE_MODEL=claude-opus-4-8
 CLAUDE_MODEL=claude-sonnet-4
 CLAUDE_MODEL=claude-haiku-4.5
 ```
 
-Check Crazyrouter's model list before using a model in production.
+### Is this the official Claude Code project?
+
+No. Claude Code is Anthropic's CLI tool. This repository only helps users configure an existing Claude Code installation to use Crazyrouter faster.
 
 ---
 
