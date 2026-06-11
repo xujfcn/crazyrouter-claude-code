@@ -1,6 +1,6 @@
 # ⚡ Already Installed Claude Code? Configure Crazyrouter Base URL + Token Only
 
-[中文说明](README.md) | English README
+[中文](README.md) | English | [Русский](README.ru.md) | [日本語](README.ja.md)
 
 This repository provides a **lightweight Claude Code + Crazyrouter configuration tool**.
 
@@ -176,6 +176,8 @@ powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercon
 crazyrouter-claude-code/
 ├── README.md              # Chinese README
 ├── README.en.md           # English README
+├── README.ru.md           # Russian README
+├── README.ja.md           # Japanese README
 ├── .env.example           # environment variable example
 ├── configure.sh           # macOS / Linux: configure only, no install
 ├── setup.sh               # macOS / Linux: full install + config

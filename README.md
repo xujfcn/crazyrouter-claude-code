@@ -1,6 +1,6 @@
 # ⚡ 已安装 Claude Code？只需配置 Crazyrouter 地址和 Token
 
-[English README](README.en.md) | 中文说明
+中文说明 | [English](README.en.md) | [Русский](README.ru.md) | [日本語](README.ja.md)
 
 这个仓库提供一个**简化版 Claude Code + Crazyrouter 配置工具**。
 
@@ -176,6 +176,8 @@ powershell -ExecutionPolicy Bypass -Command "iwr -useb https://raw.githubusercon
 crazyrouter-claude-code/
 ├── README.md              # 中文说明
 ├── README.en.md           # English README
+├── README.ru.md           # 俄语说明
+├── README.ja.md           # 日语说明
 ├── .env.example           # 环境变量示例
 ├── configure.sh           # macOS / Linux：只配置，不安装
 ├── setup.sh               # macOS / Linux：完整安装 + 配置
