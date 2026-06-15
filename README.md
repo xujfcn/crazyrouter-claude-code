@@ -1,19 +1,21 @@
+<div align="center">
+
 # Claude Code × Crazyrouter
 
-中文说明 | [English](README.en.md) | [Русский](README.ru.md) | [日本語](README.ja.md)
+**一个 API Key，调用 Claude、GPT、Gemini、DeepSeek。**
 
-> 🌐 **One Key, every model.** 把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)，用一个 API Key 调用 Claude、GPT、Gemini、DeepSeek 等多种模型。
->
-> - 🇨🇳 **中文** —— 把 Claude Code 接到 Crazyrouter，一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型，国内可直连。👉 你正在阅读中文说明。
-> - 🇬🇧 **English** —— Point Claude Code at Crazyrouter and reach Claude, GPT, Gemini, DeepSeek and more through a single API key. 👉 [Read in English](README.en.md)
-> - 🇷🇺 **Русский** —— Подключите Claude Code к Crazyrouter и обращайтесь к Claude, GPT, Gemini, DeepSeek и другим моделям через один API-ключ. 👉 [Читать по-русски](README.ru.md)
-> - 🇯🇵 **日本語** —— Claude Code を Crazyrouter に接続し、1 つの API キーで Claude・GPT・Gemini・DeepSeek などのモデルを利用できます。👉 [日本語で読む](README.ja.md)
->
-> ℹ️ 脚本运行时的全部提示与日志均为**英文** / All script prompts and logs are in **English** / Все подсказки скриптов на **английском** / スクリプトの表示はすべて**英語**です。
+把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) —— 国内可直连，无需单独的 Anthropic 账号。
 
-把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 **Crazyrouter**，用一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型。
+[![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-3b82f6?style=flat-square)](#先确认你属于哪种情况)
+[![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://docs.anthropic.com/en/docs/claude-code)
+[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)
 
-[Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) 是一个 AI API 网关，国内可直连，无需为 Claude Code 单独准备 Anthropic 账号。
+中文说明 · [English](README.en.md) · [Русский](README.ru.md) · [日本語](README.ja.md)
+
+</div>
+
+> ℹ️ 脚本运行时的全部提示与日志均为**英文** / All script prompts are in **English** / Все подсказки на **английском** / スクリプトの表示はすべて**英語**です。
 
 ---
 
