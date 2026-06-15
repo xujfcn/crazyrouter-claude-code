@@ -2,6 +2,15 @@
 
 [中文](README.md) | [English](README.en.md) | [Русский](README.ru.md) | 日本語
 
+> 🌐 **One Key, every model.** [Claude Code](https://docs.anthropic.com/en/docs/claude-code) を [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) に接続し、1 つの API キーで Claude・GPT・Gemini・DeepSeek などを利用できます。
+>
+> - 🇯🇵 **日本語** —— Claude Code を Crazyrouter に接続し、1 つの API キーで Claude・GPT・Gemini・DeepSeek などのモデルを利用できます。👉 このページが日本語版です。
+> - 🇨🇳 **中文** —— 把 Claude Code 接到 Crazyrouter，一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型。👉 [中文を読む](README.md)
+> - 🇬🇧 **English** —— Point Claude Code at Crazyrouter and reach Claude, GPT, Gemini, DeepSeek and more through a single API key. 👉 [Read in English](README.en.md)
+> - 🇷🇺 **Русский** —— Подключите Claude Code к Crazyrouter и обращайтесь к Claude, GPT, Gemini, DeepSeek и другим моделям через один API-ключ. 👉 [Читать по-русски](README.ru.md)
+>
+> ℹ️ スクリプト実行中の表示・ログはすべて**英語**です。
+
 このリポジトリは、**Claude Code + Crazyrouter のかんたん設定ツール**です。
 
 すでに Claude Code をインストール済みのユーザー向けです。Claude Code を入れ直す必要はありません。接続先を Crazyrouter に向けて、Crazyrouter のトークンを保存するだけです。

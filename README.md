@@ -2,6 +2,15 @@
 
 中文说明 | [English](README.en.md) | [Русский](README.ru.md) | [日本語](README.ja.md)
 
+> 🌐 **One Key, every model.** 把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)，用一个 API Key 调用 Claude、GPT、Gemini、DeepSeek 等多种模型。
+>
+> - 🇨🇳 **中文** —— 把 Claude Code 接到 Crazyrouter，一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型，国内可直连。👉 你正在阅读中文说明。
+> - 🇬🇧 **English** —— Point Claude Code at Crazyrouter and reach Claude, GPT, Gemini, DeepSeek and more through a single API key. 👉 [Read in English](README.en.md)
+> - 🇷🇺 **Русский** —— Подключите Claude Code к Crazyrouter и обращайтесь к Claude, GPT, Gemini, DeepSeek и другим моделям через один API-ключ. 👉 [Читать по-русски](README.ru.md)
+> - 🇯🇵 **日本語** —— Claude Code を Crazyrouter に接続し、1 つの API キーで Claude・GPT・Gemini・DeepSeek などのモデルを利用できます。👉 [日本語で読む](README.ja.md)
+>
+> ℹ️ 脚本运行时的全部提示与日志均为**英文** / All script prompts and logs are in **English** / Все подсказки скриптов на **английском** / スクリプトの表示はすべて**英語**です。
+
 把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 **Crazyrouter**，用一个 API Key 访问 Claude、GPT、Gemini、DeepSeek 等多种模型。
 
 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) 是一个 AI API 网关，国内可直连，无需为 Claude Code 单独准备 Anthropic 账号。
