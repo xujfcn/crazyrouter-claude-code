@@ -7,6 +7,22 @@
 
 $ErrorActionPreference = 'Stop'
 
+# Enable TLS 1.2/1.3 so older PowerShell (5.1) can reach GitHub / nodejs.org over HTTPS
+try {
+  [Net.ServicePointManager]::SecurityProtocol = `
+    [Net.ServicePointManager]::SecurityProtocol -bor `
+    [Net.SecurityProtocolType]::Tls12 -bor `
+    [Net.SecurityProtocolType]::Tls13
+} catch {
+  # Tls13 may not exist on very old .NET; fall back to Tls12 only
+  [Net.ServicePointManager]::SecurityProtocol = `
+    [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+}
+
+# Pinned Node.js LTS used only when winget is unavailable / fails
+$script:NodeFallbackVersion = 'v20.19.0'
+$script:HasWinget = $false
+
 function Write-Step($msg) {
   Write-Host "`n==> $msg" -ForegroundColor Cyan
 }
@@ -25,11 +41,56 @@ function Refresh-UserPath {
   $env:Path = (($machine, $user) -join ';')
 }
 
-function Ensure-Winget {
-  if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-    throw "winget not found. Please install/update App Installer from Microsoft Store, then rerun this command."
+function Get-RemoteFile($url, $dest) {
+  # Prefer BITS (progress + resumable); fall back to Invoke-WebRequest
+  try {
+    if (Get-Command Start-BitsTransfer -ErrorAction SilentlyContinue) {
+      Start-BitsTransfer -Source $url -Destination $dest -ErrorAction Stop
+    } else {
+      Invoke-WebRequest -Uri $url -OutFile $dest -UseBasicParsing
+    }
+  } catch {
+    Invoke-WebRequest -Uri $url -OutFile $dest -UseBasicParsing
   }
-  Write-Ok "winget detected"
+}
+
+function Install-NodeFromMsi {
+  Write-Step "Downloading Node.js LTS $script:NodeFallbackVersion (winget unavailable)"
+  $arch = if ([Environment]::Is64BitOperatingSystem) { 'x64' } else { 'x86' }
+  $msi = Join-Path $env:TEMP "node_installer_$($arch).msi"
+  $url = "https://nodejs.org/dist/$script:NodeFallbackVersion/node-$script:NodeFallbackVersion-$arch.msi"
+  Get-RemoteFile $url $msi
+  Write-Step "Installing Node.js (silent)"
+  Start-Process msiexec.exe -ArgumentList "/i `"$msi`" /qn /norestart" -Wait -Verb RunAs
+  Remove-Item $msi -Force -ErrorAction SilentlyContinue
+}
+
+function Install-GitFromExe {
+  Write-Step "Downloading Git for Windows (winget unavailable)"
+  $headers = @{ 'User-Agent' = 'Mozilla/5.0'; 'Accept' = 'application/json' }
+  try {
+    $rel = Invoke-RestMethod -Uri 'https://api.github.com/repos/git-for-windows/git/releases/latest' -Headers $headers -TimeoutSec 20
+    $asset = $rel.assets | Where-Object { $_.name -match '64-bit\.exe$' } | Select-Object -First 1
+    if (-not $asset) { throw 'Could not locate Git 64-bit installer asset.' }
+    $exe = Join-Path $env:TEMP $asset.name
+    Get-RemoteFile $asset.browser_download_url $exe
+    Write-Step "Installing Git (silent)"
+    Start-Process $exe -ArgumentList '/VERYSILENT /NORESTART /NOCANCEL /SP-' -Wait
+    Remove-Item $exe -Force -ErrorAction SilentlyContinue
+  } catch {
+    throw "Automatic Git download failed: $($_.Exception.Message). Install Git manually from https://git-scm.com/download/win then rerun."
+  }
+}
+
+function Ensure-Winget {
+  if (Get-Command winget -ErrorAction SilentlyContinue) {
+    $script:HasWinget = $true
+    Write-Ok "winget detected"
+  } else {
+    $script:HasWinget = $false
+    Write-WarnMsg "winget not found. Will fall back to direct downloads for Git and Node.js."
+    Write-WarnMsg "Tip: install/update 'App Installer' from Microsoft Store to enable winget."
+  }
 }
 
 function Ensure-Git {
@@ -39,7 +100,16 @@ function Ensure-Git {
   }
 
   Write-Step "Installing Git for Windows"
-  winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
+  if ($script:HasWinget) {
+    try {
+      winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
+    } catch {
+      Write-WarnMsg "winget Git install failed, falling back to direct download..."
+      Install-GitFromExe
+    }
+  } else {
+    Install-GitFromExe
+  }
   Refresh-UserPath
 
   if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
@@ -66,7 +136,16 @@ function Ensure-Node {
   }
 
   Write-Step "Installing Node.js LTS"
-  winget install --id OpenJS.NodeJS.LTS -e --source winget --accept-package-agreements --accept-source-agreements
+  if ($script:HasWinget) {
+    try {
+      winget install --id OpenJS.NodeJS.LTS -e --source winget --accept-package-agreements --accept-source-agreements
+    } catch {
+      Write-WarnMsg "winget Node.js install failed, falling back to direct download..."
+      Install-NodeFromMsi
+    }
+  } else {
+    Install-NodeFromMsi
+  }
   Refresh-UserPath
 
   if (-not (Get-Command node -ErrorAction SilentlyContinue) -or -not (Get-Command npm -ErrorAction SilentlyContinue)) {
