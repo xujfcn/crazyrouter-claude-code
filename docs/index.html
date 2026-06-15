@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Claude Code × Crazyrouter — one key, every model</title>
+<meta name="description" content="Point Claude Code at Crazyrouter. One API key for Claude, GPT, Gemini, and DeepSeek. No separate Anthropic account required." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #07080a;
+    --bg-soft: #0d0f13;
+    --panel: #111319;
+    --line: #1c1f27;
+    --text: #e7e9ee;
+    --muted: #8a8f9c;
+    --faint: #5b606d;
+    --accent: #d97757;        /* Claude warm clay — single accent, no gradients */
+    --accent-soft: rgba(217, 119, 87, 0.12);
+    --violet: #8b5cf6;
+    --radius: 14px;
+    --maxw: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Outfit", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  code, .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px);
+    background: rgba(7, 8, 10, 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.02em; }
+  .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 16px var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-links { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  .nav-links a:hover { color: var(--text); }
+  .langs { display: flex; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+  .langs button {
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    color: var(--muted); background: none; border: 0; cursor: pointer;
+    padding: 5px 11px; border-radius: 999px; transition: all .18s ease;
+  }
+  .langs button.active { background: var(--accent-soft); color: var(--accent); }
+  .langs button:hover { color: var(--text); }
+  @media (max-width: 720px){ .nav-links { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; min-height: 92dvh; display: flex; align-items: center; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(620px 320px at 78% 8%, rgba(217,119,87,0.10), transparent 70%),
+      radial-gradient(560px 300px at 12% 90%, rgba(139,92,246,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 72%);
+    opacity: .35; pointer-events: none;
+  }
+  .hero-inner { position: relative; width: 100%; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--muted); border: 1px solid var(--line);
+    background: var(--panel); padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
+  }
+  .eyebrow .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.4s infinite; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(217,119,87,.5)} 70%{box-shadow:0 0 0 9px rgba(217,119,87,0)} 100%{box-shadow:0 0 0 0 rgba(217,119,87,0)} }
+  h1.hero-title {
+    font-size: clamp(2.6rem, 6.2vw, 5rem); line-height: 0.98; letter-spacing: -0.035em;
+    font-weight: 800; margin: 0 0 22px; max-width: 16ch;
+  }
+  h1.hero-title .accent { color: var(--accent); }
+  .hero-sub { font-size: clamp(1.05rem, 1.6vw, 1.3rem); color: var(--muted); max-width: 52ch; margin: 0 0 36px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px; cursor: pointer;
+    padding: 13px 22px; border-radius: 10px; border: 1px solid transparent; transition: transform .15s ease, background .15s ease;
+    display: inline-flex; align-items: center; gap: 9px;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--accent); color: #1a0f0a; }
+  .btn-primary:hover { background: #e8895f; }
+  .btn-ghost { background: var(--panel); color: var(--text); border-color: var(--line); }
+  .btn-ghost:hover { border-color: var(--faint); }
+  .hero-meta { margin-top: 40px; display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--faint); }
+  .hero-meta b { color: var(--text); font-weight: 600; }
+
+  /* ---------- sections ---------- */
+  section { padding: clamp(64px, 9vw, 120px) 0; position: relative; }
+  .section-tag { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  h2.section-title { font-size: clamp(1.8rem, 3.4vw, 2.8rem); letter-spacing: -0.03em; font-weight: 700; margin: 0 0 18px; max-width: 22ch; }
+  .section-lead { color: var(--muted); max-width: 56ch; font-size: 1.05rem; margin: 0 0 48px; }
+
+  /* models marquee */
+  .models { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 9px 18px; font-size: 14px; color: var(--text); }
+  .chip span { color: var(--faint); }
+
+  /* paths */
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 820px){ .paths { grid-template-columns: 1fr; } }
+  .card {
+    border: 1px solid var(--line); background: linear-gradient(180deg, var(--bg-soft), var(--panel));
+    border-radius: var(--radius); padding: 30px; position: relative; overflow: hidden;
+  }
+  .card.featured { border-color: rgba(217,119,87,.4); }
+  .card .badge { position: absolute; top: 18px; right: 18px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 4px 10px; border-radius: 999px; }
+  .card h3 { font-size: 1.35rem; margin: 0 0 6px; letter-spacing: -0.02em; }
+  .card .who { color: var(--muted); font-size: .95rem; margin: 0 0 22px; min-height: 44px; }
+  .codeblock {
+    background: #050608; border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 16px; font-family: "Geist Mono", monospace; font-size: 13.5px; line-height: 1.7;
+    color: #cdd2dc; overflow-x: auto; position: relative;
+  }
+  .codeblock .c { color: #5b606d; }
+  .codeblock .pluspath { color: var(--accent); }
+  .copy {
+    position: absolute; top: 10px; right: 10px; font-family: "Outfit",sans-serif; font-size: 11px; font-weight: 600;
+    color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 7px;
+    padding: 5px 10px; cursor: pointer; transition: all .15s ease;
+  }
+  .copy:hover { color: var(--text); border-color: var(--faint); }
+  .copy.copied { color: var(--accent); border-color: var(--accent); }
+  .card .note { font-size: 13px; color: var(--faint); margin: 14px 0 0; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 820px){ .steps { grid-template-columns: 1fr; } }
+  .step { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; background: var(--bg-soft); }
+  .step .n { font-family: "Geist Mono",monospace; font-size: 13px; color: var(--accent); border: 1px solid var(--accent-soft); width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; margin-bottom: 16px; }
+  .step h4 { margin: 0 0 8px; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .step p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+  /* env table */
+  .env { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .env-row { display: grid; grid-template-columns: 260px 1fr; gap: 0; border-bottom: 1px solid var(--line); }
+  .env-row:last-child { border-bottom: 0; }
+  .env-row > div { padding: 13px 18px; font-family: "Geist Mono",monospace; font-size: 13.5px; }
+  .env-row .k { color: var(--accent); border-right: 1px solid var(--line); }
+  .env-row .v { color: var(--muted); overflow-x: auto; }
+  @media (max-width: 640px){ .env-row { grid-template-columns: 1fr; } .env-row .k { border-right: 0; border-bottom: 1px solid var(--line); } }
+
+  /* footer */
+  footer { border-top: 1px solid var(--line); padding: 50px 0; color: var(--muted); }
+  .foot-inner { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
+  .foot-links { display: flex; gap: 22px; font-size: 14px; }
+  .foot-links a:hover { color: var(--text); }
+  .foot-note { font-size: 13px; color: var(--faint); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce){ .reveal { opacity:1; transform:none; transition:none; } .pulse,.eyebrow .pulse{animation:none;} html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="dot"></span> Crazyrouter <span style="color:var(--faint);font-weight:500">× Claude Code</span></div>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#start" data-i="nav_start">Get started</a>
+        <a href="#config" data-i="nav_config">Config</a>
+        <a href="https://github.com/xujfcn/crazyrouter-claude-code">GitHub</a>
+      </div>
+      <div class="langs" id="langs">
+        <button data-lang="en" class="active">EN</button>
+        <button data-lang="zh">中文</button>
+        <button data-lang="ru">RU</button>
+        <button data-lang="ja">日本語</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="pulse"></span> <span data-i="eyebrow">One key, every model</span></div>
+    <h1 class="hero-title" data-i="h1"></h1>
+    <p class="hero-sub" data-i="sub"></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#start" data-i="cta1">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/xujfcn/crazyrouter-claude-code" data-i="cta2">View on GitHub</a>
+    </div>
+    <div class="hero-meta">
+      <div><b data-i="m1a">No</b> <span data-i="m1b">Anthropic account</span></div>
+      <div><b data-i="m2a">Direct</b> <span data-i="m2b">access in China</span></div>
+      <div><b>macOS · Linux · Windows</b></div>
+    </div>
+  </div>
+</header>
+
+<section id="models">
+  <div class="wrap reveal">
+    <div class="section-tag" data-i="models_tag">Supported</div>
+    <h2 class="section-title" data-i="models_title">One token. Every major model.</h2>
+    <p class="section-lead" data-i="models_lead">Route Claude Code through Crazyrouter and reach the models you actually use — billed to a single key.</p>
+    <div class="models">
+      <div class="chip">Claude <span>Opus · Sonnet · Haiku</span></div>
+      <div class="chip">GPT <span>OpenAI</span></div>
+      <div class="chip">Gemini <span>Google</span></div>
+      <div class="chip">DeepSeek</div>
+      <div class="chip" data-i="models_more">and more</div>
+    </div>
+  </div>
+</section>
+
+<section id="start" style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap reveal">
+    <div class="section-tag" data-i="start_tag">Get started</div>
+    <h2 class="section-title" data-i="start_title">Pick the path that matches you</h2>
+    <p class="section-lead" data-i="start_lead">Not sure if Claude Code is installed? Run <code>claude --version</code>. A version number means use Configure; "command not found" means Full install.</p>
+    <div class="paths">
+      <div class="card featured">
+        <div class="badge" data-i="rec">Recommended</div>
+        <h3 data-i="p1_title">Configure only</h3>
+        <p class="who" data-i="p1_who">Claude Code already installed — just point it at Crazyrouter. Seconds, no reinstall.</p>
+        <div class="codeblock" data-os="mac">
+          <button class="copy" data-i="copy">Copy</button>
+          <span class="c"># macOS / Linux</span><br>
+          curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/configure.sh | bash
+        </div>
+        <div class="codeblock" style="margin-top:12px" data-os="win">
+          <button class="copy" data-i="copy">Copy</button>
+          <span class="c"># Windows PowerShell</span><br>
+          irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/configure.ps1 | iex
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-i="p2_title">Full install</h3>
+        <p class="who" data-i="p2_who">Claude Code not installed yet. Installs Git, Node.js, Claude Code, then configures Crazyrouter.</p>
+        <div class="codeblock">
+          <button class="copy" data-i="copy">Copy</button>
+          <span class="c"># macOS / Linux</span><br>
+          curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/setup.sh | bash
+        </div>
+        <div class="codeblock" style="margin-top:12px">
+          <button class="copy" data-i="copy">Copy</button>
+          <span class="c"># Windows PowerShell</span><br>
+          irm https://raw.githubusercontent.com/xujfcn/crazyrouter-claude-code/main/windows/setup.ps1 | iex
+        </div>
+        <p class="note" data-i="p2_note">Get a token first at cn.crazyrouter.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap reveal">
+    <div class="section-tag" data-i="how_tag">How it works</div>
+    <h2 class="section-title" data-i="how_title">Three steps, then you are coding</h2>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h4 data-i="s1_t">Run the command</h4><p data-i="s1_d">Paste the one-liner. The script asks for your token, base URL, and default model — press Enter for defaults.</p></div>
+      <div class="step"><div class="n">02</div><h4 data-i="s2_t">Open a new window</h4><p data-i="s2_d">Environment variables apply to new shells. Open a fresh terminal, or source the env file on macOS/Linux.</p></div>
+      <div class="step"><div class="n">03</div><h4 data-i="s3_t">Run claude</h4><p data-i="s3_d">Claude Code starts and routes every request through Crazyrouter. That's it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="config" style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap reveal">
+    <div class="section-tag" data-i="cfg_tag">Under the hood</div>
+    <h2 class="section-title" data-i="cfg_title">What the script writes</h2>
+    <p class="section-lead" data-i="cfg_lead">Six user-level environment variables. Both Anthropic and OpenAI styles are set, so one token works across Claude Code and other OpenAI-compatible tools.</p>
+    <div class="env">
+      <div class="env-row"><div class="k">ANTHROPIC_BASE_URL</div><div class="v">https://cn.crazyrouter.com</div></div>
+      <div class="env-row"><div class="k">ANTHROPIC_AUTH_TOKEN</div><div class="v">&lt;your token&gt;</div></div>
+      <div class="env-row"><div class="k">ANTHROPIC_MODEL</div><div class="v">claude-opus-4-8</div></div>
+      <div class="env-row"><div class="k">CLAUDE_MODEL</div><div class="v">claude-opus-4-8</div></div>
+      <div class="env-row"><div class="k">OPENAI_API_KEY</div><div class="v">&lt;your token&gt;</div></div>
+      <div class="env-row"><div class="k">OPENAI_BASE_URL</div><div class="v">https://cn.crazyrouter.com/v1</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><span class="dot"></span> Crazyrouter</div>
+      <div class="foot-note" data-i="foot_note">Not affiliated with Anthropic. Claude Code is Anthropic's CLI tool.</div>
+    </div>
+    <div class="foot-links">
+      <a href="https://crazyrouter.com?utm_source=github&utm_medium=site&utm_campaign=claude_code_repo">Website</a>
+      <a href="https://docs.crazyrouter.com" data-i="foot_docs">API docs</a>
+      <a href="https://t.me/crzrouter">Telegram</a>
+      <a href="https://github.com/xujfcn/crazyrouter-claude-code">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  en: {
+    nav_start:"Get started", nav_config:"Config",
+    eyebrow:"One key, every model",
+    h1:["One API key for ", "every model", " you code with."],
+    sub:"Point Claude Code at Crazyrouter and reach Claude, GPT, Gemini, and DeepSeek — no separate Anthropic account, direct access in China.",
+    cta1:"Get started", cta2:"View on GitHub",
+    m1a:"No", m1b:"Anthropic account", m2a:"Direct", m2b:"access in China",
+    models_tag:"Supported", models_title:"One token. Every major model.", models_lead:"Route Claude Code through Crazyrouter and reach the models you actually use — billed to a single key.", models_more:"and more",
+    start_tag:"Get started", start_title:"Pick the path that matches you", start_lead:'Not sure if Claude Code is installed? Run "claude --version". A version number means use Configure; "command not found" means Full install.',
+    rec:"Recommended", p1_title:"Configure only", p1_who:"Claude Code already installed — just point it at Crazyrouter. Seconds, no reinstall.",
+    p2_title:"Full install", p2_who:"Claude Code not installed yet. Installs Git, Node.js, Claude Code, then configures Crazyrouter.", p2_note:"Get a token first at cn.crazyrouter.com",
+    copy:"Copy",
+    how_tag:"How it works", how_title:"Three steps, then you are coding",
+    s1_t:"Run the command", s1_d:"Paste the one-liner. The script asks for your token, base URL, and default model — press Enter for defaults.",
+    s2_t:"Open a new window", s2_d:"Environment variables apply to new shells. Open a fresh terminal, or source the env file on macOS/Linux.",
+    s3_t:"Run claude", s3_d:"Claude Code starts and routes every request through Crazyrouter. That's it.",
+    cfg_tag:"Under the hood", cfg_title:"What the script writes", cfg_lead:"Six user-level environment variables. Both Anthropic and OpenAI styles are set, so one token works across Claude Code and other OpenAI-compatible tools.",
+    foot_note:"Not affiliated with Anthropic. Claude Code is Anthropic's CLI tool.", foot_docs:"API docs"
+  },
+  zh: {
+    nav_start:"开始", nav_config:"配置",
+    eyebrow:"一个 Key，调用所有模型",
+    h1:["一个 API Key，", "所有模型", "任你调用。"],
+    sub:"把 Claude Code 接到 Crazyrouter，调用 Claude、GPT、Gemini、DeepSeek —— 无需单独的 Anthropic 账号，国内可直连。",
+    cta1:"立即开始", cta2:"在 GitHub 查看",
+    m1a:"无需", m1b:"Anthropic 账号", m2a:"国内", m2b:"可直连",
+    models_tag:"已支持", models_title:"一个 Token，覆盖主流模型。", models_lead:"让 Claude Code 走 Crazyrouter，调用你真正在用的模型 —— 统一计费到一个 Key。", models_more:"以及更多",
+    start_tag:"开始", start_title:"对号入座，选你的那条路", start_lead:'不确定装没装 Claude Code？运行 "claude --version"。有版本号就用「只配置」，提示找不到命令就用「完整安装」。',
+    rec:"推荐", p1_title:"只配置", p1_who:"已装好 Claude Code —— 只把接入地址指向 Crazyrouter。几秒完成，不重装。",
+    p2_title:"完整安装", p2_who:"还没装 Claude Code。自动安装 Git、Node.js、Claude Code，再写入 Crazyrouter 配置。", p2_note:"先到 cn.crazyrouter.com 获取 Token",
+    copy:"复制",
+    how_tag:"工作原理", how_title:"三步，然后就能开写",
+    s1_t:"运行命令", s1_d:"粘贴一行命令。脚本会问 Token、Base URL、默认模型 —— 直接回车用默认值。",
+    s2_t:"开新窗口", s2_d:"环境变量只在新窗口生效。开一个新终端，或在 macOS/Linux 上 source 配置文件。",
+    s3_t:"运行 claude", s3_d:"Claude Code 启动，所有请求都走 Crazyrouter。搞定。",
+    cfg_tag:"底层细节", cfg_title:"脚本写入了什么", cfg_lead:"六个用户级环境变量。同时写 Anthropic 和 OpenAI 两套，一个 Token 通吃 Claude Code 和其他 OpenAI 兼容工具。",
+    foot_note:"与 Anthropic 无隶属关系。Claude Code 是 Anthropic 的 CLI 工具。", foot_docs:"API 文档"
+  },
+  ru: {
+    nav_start:"Начать", nav_config:"Настройки",
+    eyebrow:"Один ключ — все модели",
+    h1:["Один API-ключ для ", "всех моделей", ", с которыми вы кодите."],
+    sub:"Направьте Claude Code на Crazyrouter и обращайтесь к Claude, GPT, Gemini и DeepSeek — без отдельного аккаунта Anthropic, с прямым доступом в Китае.",
+    cta1:"Начать", cta2:"Открыть на GitHub",
+    m1a:"Без", m1b:"аккаунта Anthropic", m2a:"Прямой", m2b:"доступ в Китае",
+    models_tag:"Поддержка", models_title:"Один токен. Все ключевые модели.", models_lead:"Пустите Claude Code через Crazyrouter и используйте нужные модели — оплата по одному ключу.", models_more:"и другие",
+    start_tag:"Начать", start_title:"Выберите подходящий путь", start_lead:'Не уверены, установлен ли Claude Code? Выполните "claude --version". Номер версии — «Только настройка»; «command not found» — «Полная установка».',
+    rec:"Рекомендуется", p1_title:"Только настройка", p1_who:"Claude Code уже установлен — просто направьте его на Crazyrouter. Секунды, без переустановки.",
+    p2_title:"Полная установка", p2_who:"Claude Code ещё не установлен. Ставит Git, Node.js, Claude Code, затем настраивает Crazyrouter.", p2_note:"Сначала получите токен на cn.crazyrouter.com",
+    copy:"Копировать",
+    how_tag:"Как это работает", how_title:"Три шага — и вы кодите",
+    s1_t:"Запустите команду", s1_d:"Вставьте однострочник. Скрипт спросит токен, base URL и модель — Enter для значений по умолчанию.",
+    s2_t:"Откройте новое окно", s2_d:"Переменные среды действуют в новых сессиях. Откройте новый терминал или сделайте source env-файла на macOS/Linux.",
+    s3_t:"Запустите claude", s3_d:"Claude Code запускается и направляет все запросы через Crazyrouter. Готово.",
+    cfg_tag:"Под капотом", cfg_title:"Что записывает скрипт", cfg_lead:"Шесть пользовательских переменных среды. Задаются стили Anthropic и OpenAI, поэтому один токен работает и в Claude Code, и в других OpenAI-совместимых инструментах.",
+    foot_note:"Не связано с Anthropic. Claude Code — это CLI-инструмент Anthropic.", foot_docs:"Документация API"
+  },
+  ja: {
+    nav_start:"開始", nav_config:"設定",
+    eyebrow:"1 つのキーで、すべてのモデル",
+    h1:["1 つの API キーで、", "すべてのモデル", "を。"],
+    sub:"Claude Code を Crazyrouter に接続し、Claude・GPT・Gemini・DeepSeek を利用 — 個別の Anthropic アカウント不要、中国から直接接続。",
+    cta1:"はじめる", cta2:"GitHub で見る",
+    m1a:"不要", m1b:"Anthropic アカウント", m2a:"直接", m2b:"中国から接続",
+    models_tag:"対応モデル", models_title:"1 つのトークンで主要モデルを網羅。", models_lead:"Claude Code を Crazyrouter 経由にして、実際に使うモデルへ — 課金は 1 つのキーに集約。", models_more:"ほか多数",
+    start_tag:"開始", start_title:"自分に合う方法を選ぶ", start_lead:'Claude Code が入っているか不明？「claude --version」を実行。バージョン番号が出れば「設定のみ」、「command not found」なら「フルインストール」。',
+    rec:"推奨", p1_title:"設定のみ", p1_who:"Claude Code 導入済み — 接続先を Crazyrouter に向けるだけ。数秒、再インストール不要。",
+    p2_title:"フルインストール", p2_who:"Claude Code 未導入。Git・Node.js・Claude Code を入れ、Crazyrouter を設定。", p2_note:"先に cn.crazyrouter.com でトークンを取得",
+    copy:"コピー",
+    how_tag:"仕組み", how_title:"3 ステップで、すぐにコーディング",
+    s1_t:"コマンドを実行", s1_d:"ワンライナーを貼り付け。スクリプトがトークン・Base URL・モデルを質問 — Enter で既定値。",
+    s2_t:"新しいウィンドウを開く", s2_d:"環境変数は新しいシェルで有効。新しいターミナルを開くか、macOS/Linux では env ファイルを source。",
+    s3_t:"claude を実行", s3_d:"Claude Code が起動し、すべてのリクエストが Crazyrouter 経由に。これで完了。",
+    cfg_tag:"内部の仕組み", cfg_title:"スクリプトが書き込む内容", cfg_lead:"6 つのユーザー環境変数。Anthropic と OpenAI の両形式を設定するため、1 つのトークンで Claude Code と他の OpenAI 互換ツールに対応。",
+    foot_note:"Anthropic とは無関係です。Claude Code は Anthropic の CLI ツールです。", foot_docs:"API ドキュメント"
+  }
+};
+
+function applyLang(lang){
+  const d = I18N[lang] || I18N.en;
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i]").forEach(el => {
+    const key = el.getAttribute("data-i");
+    const val = d[key];
+    if (val === undefined) return;
+    if (key === "h1" && Array.isArray(val)) {
+      el.innerHTML = val[0] + '<span class="accent">' + val[1] + '</span>' + val[2];
+    } else {
+      el.textContent = val;
+    }
+  });
+  document.querySelectorAll("#langs button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+  try { localStorage.setItem("cr_lang", lang); } catch(e){}
+}
+
+document.getElementById("langs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  applyLang(b.dataset.lang);
+});
+
+// copy buttons
+document.querySelectorAll(".copy").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const block = btn.parentElement;
+    const text = block.innerText.replace(/^Copy\s*/,"").replace(/^复制\s*/,"").replace(/^Копировать\s*/,"").replace(/^コピー\s*/,"").trim();
+    const cmd = text.split("\n").filter(l => l && !l.trim().startsWith("#")).join("\n");
+    navigator.clipboard.writeText(cmd).then(() => {
+      const orig = btn.textContent; btn.textContent = "✓"; btn.classList.add("copied");
+      setTimeout(() => { btn.classList.remove("copied"); applyLang(document.documentElement.lang); }, 1400);
+    });
+  });
+});
+
+// reveal on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+// init: stored pref → browser lang → en
+(function(){
+  let lang = "en";
+  try { lang = localStorage.getItem("cr_lang") || ""; } catch(e){}
+  if (!lang) {
+    const n = (navigator.language || "en").toLowerCase();
+    if (n.startsWith("zh")) lang = "zh";
+    else if (n.startsWith("ru")) lang = "ru";
+    else if (n.startsWith("ja")) lang = "ja";
+    else lang = "en";
+  }
+  applyLang(lang);
+})();
+</script>
+</body>
+</html>
