@@ -2,6 +2,11 @@
 
 # Claude Code × Crazyrouter
 
+<!-- crazyrouter-links -->
+> - 📖 **完全ガイド（手動設定・Base URL・推奨モデル・FAQ）**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 🧩 **Claude の全モデルとリアルタイム料金**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 💰 **モデル料金比較（公式 / Azure / Bedrock / Vertex / Crazyrouter、毎日更新）**: https://crazyrouter.com/ja/pricing?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+
 **1 つの API キーで Claude・GPT・Gemini・DeepSeek を。**
 
 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) を [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) に接続 — 個別の Anthropic アカウントは不要です。

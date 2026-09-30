@@ -2,6 +2,12 @@
 
 # Claude Code × Crazyrouter
 
+<!-- crazyrouter-links -->
+> - 📖 **完整接入指南（手动配置、Base URL 规则、推荐模型、FAQ）**：https://crazyrouter.com/zh/integrations/claude-code?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 🧩 **Claude 全部模型与实时价格**：https://crazyrouter.com/zh/models/anthropic?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 💰 **模型价格对比（官方 / Azure / Bedrock / Vertex / Crazyrouter，每日核对）**：https://crazyrouter.com/zh/pricing?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 🗂 **按厂商浏览全部模型**：https://crazyrouter.com/zh/models?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+
 **一个 API Key，调用 Claude、GPT、Gemini、DeepSeek。**
 
 把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) —— 国内可直连，无需单独的 Anthropic 账号。

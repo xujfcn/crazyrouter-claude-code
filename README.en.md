@@ -2,6 +2,12 @@
 
 # Claude Code × Crazyrouter
 
+<!-- crazyrouter-links -->
+> - 📖 **Full Claude Code integration guide (manual config, base URL rules, recommended models, FAQ)**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 🧩 **Every Claude model with live prices**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 💰 **Model price comparison (list vs Azure / Bedrock / Vertex vs Crazyrouter, verified daily)**: https://crazyrouter.com/en/pricing?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 🗂 **All models by vendor**: https://crazyrouter.com/en/models?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+
 **One API key for Claude, GPT, Gemini, and DeepSeek.**
 
 Point [Claude Code](https://docs.anthropic.com/en/docs/claude-code) at [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) — no separate Anthropic account required.
