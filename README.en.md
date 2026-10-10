@@ -3,19 +3,19 @@
 # Claude Code × Crazyrouter
 
 <!-- crazyrouter-links -->
-> - 📖 **Full Claude Code integration guide (manual config, base URL rules, recommended models, FAQ)**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 🧩 **Every Claude model with live prices**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 💰 **Model price comparison (list vs Azure / Bedrock / Vertex vs Crazyrouter, verified daily)**: https://crazyrouter.com/en/pricing?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 🗂 **All models by vendor**: https://crazyrouter.com/en/models?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 📖 **Full Claude Code integration guide (manual config, base URL rules, recommended models, FAQ)**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_01__en
+> - 🧩 **Every Claude model with live prices**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_02__en
+> - 💰 **Model price comparison (list vs Azure / Bedrock / Vertex vs Crazyrouter, verified daily)**: https://crazyrouter.com/en/pricing?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_03__en
+> - 🗂 **All models by vendor**: https://crazyrouter.com/en/models?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__en
 
 **One API key for Claude, GPT, Gemini, and DeepSeek.**
 
-Point [Claude Code](https://docs.anthropic.com/en/docs/claude-code) at [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) — no separate Anthropic account required.
+Point [Claude Code](https://docs.anthropic.com/en/docs/claude-code) at [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_05__en) — no separate Anthropic account required.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-3b82f6?style=flat-square)](#which-one-are-you)
 [![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://docs.anthropic.com/en/docs/claude-code)
-[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)
+[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__en)
 
 [中文](README.md) · English · [Русский](README.ru.md) · [日本語](README.ja.md)
 
@@ -230,8 +230,8 @@ crazyrouter-claude-code/
 
 ## Links
 
-- 🌐 Website: <https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo>
-- 📖 API docs: <https://docs.crazyrouter.com>
+- 🌐 Website: <https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__en>
+- 📖 API docs: <https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_08__en&utm_medium=github_readme>
 - 💬 Telegram: <https://t.me/crzrouter>
 - 🐦 Twitter / X: <https://twitter.com/metaviiii>
 

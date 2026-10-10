@@ -3,19 +3,19 @@
 # Claude Code × Crazyrouter
 
 <!-- crazyrouter-links -->
-> - 📖 **完整接入指南（手动配置、Base URL 规则、推荐模型、FAQ）**：https://crazyrouter.com/zh/integrations/claude-code?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 🧩 **Claude 全部模型与实时价格**：https://crazyrouter.com/zh/models/anthropic?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 💰 **模型价格对比（官方 / Azure / Bedrock / Vertex / Crazyrouter，每日核对）**：https://crazyrouter.com/zh/pricing?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 🗂 **按厂商浏览全部模型**：https://crazyrouter.com/zh/models?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 📖 **完整接入指南（手动配置、Base URL 规则、推荐模型、FAQ）**：https://crazyrouter.com/zh/integrations/claude-code?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_01__zh
+> - 🧩 **Claude 全部模型与实时价格**：https://crazyrouter.com/zh/models/anthropic?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_02__zh
+> - 💰 **模型价格对比（官方 / Azure / Bedrock / Vertex / Crazyrouter，每日核对）**：https://crazyrouter.com/zh/pricing?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_03__zh
+> - 🗂 **按厂商浏览全部模型**：https://crazyrouter.com/zh/models?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__zh
 
 **一个 API Key，调用 Claude、GPT、Gemini、DeepSeek。**
 
-把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) —— 国内可直连，无需单独的 Anthropic 账号。
+把 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 接到 [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_05__zh) —— 国内可直连，无需单独的 Anthropic 账号。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-3b82f6?style=flat-square)](#先确认你属于哪种情况)
 [![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://docs.anthropic.com/en/docs/claude-code)
-[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)
+[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__zh)
 
 中文说明 · [English](README.en.md) · [Русский](README.ru.md) · [日本語](README.ja.md)
 
@@ -230,8 +230,8 @@ crazyrouter-claude-code/
 
 ## 相关链接
 
-- 🌐 官网：<https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo>
-- 📖 API 文档：<https://docs.crazyrouter.com>
+- 🌐 官网：<https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__zh>
+- 📖 API 文档：<https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_08__zh&utm_medium=github_readme>
 - 💬 Telegram：<https://t.me/crzrouter>
 - 🐦 Twitter / X：<https://twitter.com/metaviiii>
 

@@ -3,18 +3,18 @@
 # Claude Code × Crazyrouter
 
 <!-- crazyrouter-links -->
-> - 📖 **Полное руководство (ручная настройка, Base URL, модели, FAQ)**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 🧩 **Все модели Claude и актуальные цены**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=readme&utm_campaign=claude-code
-> - 💰 **Сравнение цен моделей (официальные / Azure / Bedrock / Vertex / Crazyrouter)**: https://crazyrouter.com/ru/pricing?utm_source=github&utm_medium=readme&utm_campaign=claude-code
+> - 📖 **Полное руководство (ручная настройка, Base URL, модели, FAQ)**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_01__ru
+> - 🧩 **Все модели Claude и актуальные цены**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_02__ru
+> - 💰 **Сравнение цен моделей (официальные / Azure / Bedrock / Vertex / Crazyrouter)**: https://crazyrouter.com/ru/pricing?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_03__ru
 
 **Один API-ключ для Claude, GPT, Gemini и DeepSeek.**
 
-Направьте [Claude Code](https://docs.anthropic.com/en/docs/claude-code) на [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo) — отдельный аккаунт Anthropic не нужен.
+Направьте [Claude Code](https://docs.anthropic.com/en/docs/claude-code) на [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__ru) — отдельный аккаунт Anthropic не нужен.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-3b82f6?style=flat-square)](#кто-вы)
 [![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://docs.anthropic.com/en/docs/claude-code)
-[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo)
+[![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_05__ru)
 
 [中文](README.md) · [English](README.en.md) · Русский · [日本語](README.ja.md)
 
@@ -229,8 +229,8 @@ crazyrouter-claude-code/
 
 ## Ссылки
 
-- 🌐 Сайт: <https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=claude_code_repo>
-- 📖 Документация API: <https://docs.crazyrouter.com>
+- 🌐 Сайт: <https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__ru>
+- 📖 Документация API: <https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__ru&utm_medium=github_readme>
 - 💬 Telegram: <https://t.me/crzrouter>
 - 🐦 Twitter / X: <https://twitter.com/metaviiii>
 
