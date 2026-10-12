@@ -2,6 +2,11 @@
 
 # Claude Code × Crazyrouter
 
+## Practical guides / 实操入口
+
+- [从登录态到真实任务的分层诊断 / Diagnosis](docs/diagnose.md)
+
+
 <!-- crazyrouter-links -->
 > - 📖 **完全ガイド（手動設定・Base URL・推奨モデル・FAQ）**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_01__ja
 > - 🧩 **Claude の全モデルとリアルタイム料金**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_02__ja
