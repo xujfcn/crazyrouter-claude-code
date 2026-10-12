@@ -9,11 +9,11 @@
 
 **Один API-ключ для Claude, GPT, Gemini и DeepSeek.**
 
-Направьте [Claude Code](https://docs.anthropic.com/en/docs/claude-code) на [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__ru) — отдельный аккаунт Anthropic не нужен.
+Направьте [Claude Code](https://code.claude.com/docs/en/overview) на [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__ru) — отдельный аккаунт Anthropic не нужен.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-3b82f6?style=flat-square)](#кто-вы)
-[![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://docs.anthropic.com/en/docs/claude-code)
+[![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://code.claude.com/docs/en/overview)
 [![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_05__ru)
 
 [中文](README.md) · [English](README.en.md) · Русский · [日本語](README.ja.md)
@@ -35,7 +35,7 @@
 
 > Не уверены, установлен ли он? Выполните `claude --version`. Номер версии — используйте `configure`; «command not found» — используйте `setup`.
 
-Перед началом получите **API-ключ Crazyrouter**: <https://cn.crazyrouter.com>
+Перед началом получите **API-ключ Crazyrouter**: <https://crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__ru&utm_medium=github_readme>
 
 ---
 
@@ -166,11 +166,11 @@ claude
 
 ## Опционально: смена модели
 
-По умолчанию `claude-opus-4-8`. Чтобы переключиться на другую модель Claude, поддерживаемую Crazyrouter, измените `CLAUDE_MODEL`:
+По умолчанию `claude-opus-4-8`. Чтобы переключиться на другую модель Claude, поддерживаемую Crazyrouter, измените `ANTHROPIC_MODEL`:
 
 ```bash
-CLAUDE_MODEL=claude-sonnet-4     # быстрее, дешевле
-CLAUDE_MODEL=claude-haiku-4.5    # самая лёгкая
+export ANTHROPIC_MODEL=claude-sonnet-4-6     # быстрее, дешевле
+export ANTHROPIC_MODEL=claude-haiku-4-5    # самая лёгкая
 ```
 
 ---
@@ -229,8 +229,8 @@ crazyrouter-claude-code/
 
 ## Ссылки
 
-- 🌐 Сайт: <https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__ru>
-- 📖 Документация API: <https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__ru&utm_medium=github_readme>
+- 🌐 Сайт: <https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__ru>
+- 📖 Документация API: <https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_08__ru&utm_medium=github_readme>
 - 💬 Telegram: <https://t.me/crzrouter>
 - 🐦 Twitter / X: <https://twitter.com/metaviiii>
 

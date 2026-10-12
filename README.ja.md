@@ -5,15 +5,15 @@
 <!-- crazyrouter-links -->
 > - 📖 **完全ガイド（手動設定・Base URL・推奨モデル・FAQ）**: https://crazyrouter.com/en/integrations/claude-code?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_01__ja
 > - 🧩 **Claude の全モデルとリアルタイム料金**: https://crazyrouter.com/en/models/anthropic?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_02__ja
-> - 💰 **モデル料金比較（公式 / Azure / Bedrock / Vertex / Crazyrouter、毎日更新）**: https://crazyrouter.com/ja/pricing?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_03__ja
+> - 💰 **モデル料金比較（公式 / Azure / Bedrock / Vertex / Crazyrouter、ページの日付を確認）**: https://crazyrouter.com/ja/pricing?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_03__ja
 
 **1 つの API キーで Claude・GPT・Gemini・DeepSeek を。**
 
-[Claude Code](https://docs.anthropic.com/en/docs/claude-code) を [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__ja) に接続 — 個別の Anthropic アカウントは不要です。
+[Claude Code](https://code.claude.com/docs/en/overview) を [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_04__ja) に接続 — 個別の Anthropic アカウントは不要です。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-3b82f6?style=flat-square)](#あなたはどちらですか)
-[![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://docs.anthropic.com/en/docs/claude-code)
+[![Claude Code](https://img.shields.io/badge/for-Claude%20Code-d97757?style=flat-square)](https://code.claude.com/docs/en/overview)
 [![Crazyrouter](https://img.shields.io/badge/gateway-Crazyrouter-8b5cf6?style=flat-square)](https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_05__ja)
 
 [中文](README.md) · [English](README.en.md) · [Русский](README.ru.md) · 日本語
@@ -35,7 +35,7 @@
 
 > 入っているか不明な場合は `claude --version` を実行。バージョン番号が出れば `configure`、「command not found」なら `setup` を使います。
 
-始める前に **Crazyrouter の API キー**を取得してください：<https://cn.crazyrouter.com>
+始める前に **Crazyrouter の API キー**を取得してください：<https://crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__ja&utm_medium=github_readme>
 
 ---
 
@@ -166,11 +166,11 @@ claude
 
 ## 任意：モデルの変更
 
-既定は `claude-opus-4-8` です。Crazyrouter が対応する別の Claude モデルに切り替えるには `CLAUDE_MODEL` を変更します：
+既定は `claude-opus-4-8` です。Crazyrouter が対応する別の Claude モデルに切り替えるには `ANTHROPIC_MODEL` を変更します：
 
 ```bash
-CLAUDE_MODEL=claude-sonnet-4     # 高速・低コスト
-CLAUDE_MODEL=claude-haiku-4.5    # 最軽量
+export ANTHROPIC_MODEL=claude-sonnet-4-6     # 高速・低コスト
+export ANTHROPIC_MODEL=claude-haiku-4-5    # 最軽量
 ```
 
 ---
@@ -229,8 +229,8 @@ crazyrouter-claude-code/
 
 ## リンク
 
-- 🌐 公式サイト：<https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_06__ja>
-- 📖 API ドキュメント：<https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__ja&utm_medium=github_readme>
+- 🌐 公式サイト：<https://crazyrouter.com?utm_source=github&utm_medium=github_readme&utm_campaign=crazyrouter-claude-code&utm_content=readme_07__ja>
+- 📖 API ドキュメント：<https://docs.crazyrouter.com?utm_source=github&utm_campaign=crazyrouter-claude-code&utm_content=readme_08__ja&utm_medium=github_readme>
 - 💬 Telegram：<https://t.me/crzrouter>
 - 🐦 Twitter / X：<https://twitter.com/metaviiii>
 
